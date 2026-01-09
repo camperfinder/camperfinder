@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #ffffff; color: #1a1a1a; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #ffffff; color: #1a1a1a; overflow-x: hidden; }
         .search-shadow { box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
         .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #f0f0f0; }
         .card-hover:hover { transform: translateY(-8px); border-color: #3b82f6; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
@@ -23,9 +23,8 @@
         <div class="bg-blue-600 p-2 rounded-lg text-white"><i data-lucide="car"></i></div>
         <span class="font-bold text-xl tracking-tight uppercase">Camper<span class="text-blue-600">Finder</span></span>
     </div>
-    <div class="hidden md:flex gap-6 text-sm font-semibold text-gray-600">
+    <div class="flex gap-6 text-sm font-semibold text-gray-600">
         <a href="#" class="hover:text-blue-600">Esplora</a>
-        <a href="#" class="hover:text-blue-600">Assicurazione</a>
         <a href="#" class="hover:text-blue-600">Supporto</a>
     </div>
 </nav>
@@ -33,21 +32,21 @@
 <header class="pt-16 pb-32 bg-gray-50 px-4">
     <div class="max-w-4xl mx-auto text-center">
         <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">Trova il camper perfetto per la tua <span class="gradient-text">prossima avventura</span>.</h1>
-        <p class="text-gray-500 text-lg">Confrontiamo i migliori fornitori per garantirti il prezzo più basso senza contratti diretti.</p>
+        <p class="text-gray-500 text-lg">Confrontiamo i migliori fornitori per garantirti il prezzo più basso.</p>
     </div>
 </header>
 
 <div class="max-w-5xl mx-auto px-4 -mt-16">
     <div class="bg-white p-4 rounded-[2rem] search-shadow border border-gray-100 grid grid-cols-1 md:grid-cols-4 gap-2 items-center">
-        <div class="px-6 py-2 hover:bg-gray-50 rounded-full cursor-pointer transition">
+        <div class="px-6 py-2 hover:bg-gray-50 rounded-full transition">
             <label class="block text-[10px] font-black uppercase text-gray-400">Ritiro</label>
             <input type="date" id="startDate" class="bg-transparent w-full text-sm font-semibold outline-none border-none">
         </div>
-        <div class="px-6 py-2 border-l border-gray-100 hover:bg-gray-50 rounded-full cursor-pointer transition">
+        <div class="px-6 py-2 border-l border-gray-100 hover:bg-gray-50 rounded-full transition">
             <label class="block text-[10px] font-black uppercase text-gray-400">Rientro</label>
             <input type="date" id="endDate" class="bg-transparent w-full text-sm font-semibold outline-none border-none">
         </div>
-        <div class="px-6 py-2 border-l border-gray-100 hover:bg-gray-50 rounded-full cursor-pointer transition">
+        <div class="px-6 py-2 border-l border-gray-100 hover:bg-gray-50 rounded-full transition">
             <label class="block text-[10px] font-black uppercase text-gray-400">Budget Max (€)</label>
             <input type="number" id="maxPrice" placeholder="Es. 500" class="bg-transparent w-full text-sm font-semibold outline-none">
         </div>
@@ -57,121 +56,65 @@
             </button>
         </div>
     </div>
-</div>
 
-<div class="max-w-6xl mx-auto px-4 mt-12 flex gap-4 overflow-x-auto pb-4 no-scrollbar">
-    <button onclick="vaiAPartner('')" class="flex items-center gap-2 px-6 py-2 rounded-full border border-blue-600 bg-blue-50 text-blue-600 font-medium text-sm whitespace-nowrap"><i data-lucide="layout-grid" class="w-4 h-4"></i> Tutti</button>
-    <button onclick="vaiAPartner('motorhome')" class="flex items-center gap-2 px-6 py-2 rounded-full border border-gray-200 hover:border-blue-600 transition font-medium text-sm whitespace-nowrap"><i data-lucide="truck" class="w-4 h-4"></i> Camper</button>
-    <button onclick="vaiAPartner('van')" class="flex items-center gap-2 px-6 py-2 rounded-full border border-gray-200 hover:border-blue-600 transition font-medium text-sm whitespace-nowrap"><i data-lucide="bus" class="w-4 h-4"></i> Van</button>
-    <button onclick="vaiAPartner('caravan')" class="flex items-center gap-2 px-6 py-2 rounded-full border border-gray-200 hover:border-blue-600 transition font-medium text-sm whitespace-nowrap"><i data-lucide="tent" class="w-4 h-4"></i> Caravan</button>
+    <div class="flex gap-4 mt-8 overflow-x-auto pb-4 no-scrollbar justify-start md:justify-center">
+        <button onclick="vaiAPartner('')" class="flex items-center gap-2 px-6 py-2 rounded-full border border-blue-600 bg-blue-50 text-blue-600 font-medium text-sm whitespace-nowrap"><i data-lucide="layout-grid" class="w-4 h-4"></i> Tutti</button>
+        <button onclick="vaiAPartner('motorhome')" class="flex items-center gap-2 px-6 py-2 rounded-full border border-gray-200 hover:border-blue-600 bg-white transition font-medium text-sm whitespace-nowrap"><i data-lucide="truck" class="w-4 h-4"></i> Camper</button>
+        <button onclick="vaiAPartner('van')" class="flex items-center gap-2 px-6 py-2 rounded-full border border-gray-200 hover:border-blue-600 bg-white transition font-medium text-sm whitespace-nowrap"><i data-lucide="bus" class="w-4 h-4"></i> Van</button>
+        <button onclick="vaiAPartner('caravan')" class="flex items-center gap-2 px-6 py-2 rounded-full border border-gray-200 hover:border-blue-600 bg-white transition font-medium text-sm whitespace-nowrap"><i data-lucide="tent" class="w-4 h-4"></i> Caravan</button>
+    </div>
 </div>
 
 <main class="max-w-6xl mx-auto py-12 px-4">
-    <div id="loader" class="hidden text-center py-10 flex flex-col items-center gap-4">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-        <p class="text-blue-600 font-bold">Cercando tra i migliori fornitori...</p>
-    </div>
-    
-    <div id="results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        <div class="card-hover rounded-[2.5rem] bg-white overflow-hidden flex flex-col group">
-            <div class="relative h-64 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase">Italia</div>
-            </div>
-            <div class="p-8">
-                <span class="text-blue-600 font-bold text-xs uppercase">Van Life Edition</span>
-                <h3 class="text-2xl font-bold mb-4">Volkswagen T6 California</h3>
-                <div class="flex items-center gap-4 text-gray-400 text-sm mb-6">
-                    <span class="flex items-center gap-1"><i data-lucide="users" class="w-4 h-4"></i> 4 Posti</span>
-                    <span class="flex items-center gap-1"><i data-lucide="zap" class="w-4 h-4"></i> Full Optional</span>
-                </div>
-                <button onclick="eseguiRicerca()" class="w-full bg-gray-900 text-white py-3 rounded-xl font-bold">Vedi Disponibilità</button>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div class="card-hover rounded-[2.5rem] bg-white overflow-hidden flex flex-col">
+            <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=500" class="h-56 w-full object-cover">
+            <div class="p-6">
+                <span class="text-blue-600 font-bold text-xs uppercase">Disponibile Ora</span>
+                <h3 class="text-xl font-bold mt-2">California Ocean T6</h3>
+                <p class="text-gray-500 text-sm mt-2">Il van più amato di sempre. Agile e completo.</p>
+                <button onclick="eseguiRicerca()" class="w-full mt-6 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-blue-600 transition">Verifica</button>
             </div>
         </div>
-
-        <div class="card-hover rounded-[2.5rem] bg-white overflow-hidden flex flex-col group">
-            <div class="relative h-64 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1517524008436-bb401ac293b8?w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase">Top Choice</div>
-            </div>
-            <div class="p-8">
-                <span class="text-purple-600 font-bold text-xs uppercase">Premium Camper</span>
-                <h3 class="text-2xl font-bold mb-4">Fiat Ducato Hymer</h3>
-                <div class="flex items-center gap-4 text-gray-400 text-sm mb-6">
-                    <span class="flex items-center gap-1"><i data-lucide="users" class="w-4 h-4"></i> 6 Posti</span>
-                    <span class="flex items-center gap-1"><i data-lucide="coffee" class="w-4 h-4"></i> Cucina XXL</span>
-                </div>
-                <button onclick="eseguiRicerca()" class="w-full bg-gray-900 text-white py-3 rounded-xl font-bold">Vedi Disponibilità</button>
+        <div class="card-hover rounded-[2.5rem] bg-white overflow-hidden flex flex-col">
+            <img src="https://images.unsplash.com/photo-1517524008436-bb401ac293b8?w=500" class="h-56 w-full object-cover">
+            <div class="p-6">
+                <span class="text-blue-600 font-bold text-xs uppercase">Per Famiglie</span>
+                <h3 class="text-xl font-bold mt-2">Hymer Tramp S</h3>
+                <p class="text-gray-500 text-sm mt-2">Spazio infinito e lusso per i tuoi viaggi.</p>
+                <button onclick="eseguiRicerca()" class="w-full mt-6 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-blue-600 transition">Verifica</button>
             </div>
         </div>
-
-        <div class="card-hover rounded-[2.5rem] bg-white overflow-hidden flex flex-col group">
-            <div class="relative h-64 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase">Wild</div>
-            </div>
-            <div class="p-8">
-                <span class="text-green-600 font-bold text-xs uppercase">Off-Road Van</span>
-                <h3 class="text-2xl font-bold mb-4">Mercedes Sprinter 4x4</h3>
-                <div class="flex items-center gap-4 text-gray-400 text-sm mb-6">
-                    <span class="flex items-center gap-1"><i data-lucide="users" class="w-4 h-4"></i> 2 Posti</span>
-                    <span class="flex items-center gap-1"><i data-lucide="map" class="w-4 h-4"></i> Adventure Ready</span>
-                </div>
-                <button onclick="eseguiRicerca()" class="w-full bg-gray-900 text-white py-3 rounded-xl font-bold">Vedi Disponibilità</button>
+        <div class="card-hover rounded-[2.5rem] bg-white overflow-hidden flex flex-col">
+            <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=500" class="h-56 w-full object-cover">
+            <div class="p-6">
+                <span class="text-blue-600 font-bold text-xs uppercase">Adventure</span>
+                <h3 class="text-xl font-bold mt-2">Mercedes Sprinter 4x4</h3>
+                <p class="text-gray-500 text-sm mt-2">Nessun limite. Vai dove gli altri si fermano.</p>
+                <button onclick="eseguiRicerca()" class="w-full mt-6 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-blue-600 transition">Verifica</button>
             </div>
         </div>
     </div>
 </main>
 
-<footer class="bg-gray-900 text-white py-12 px-8">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
-        <div>
-            <div class="flex items-center gap-2 mb-6">
-                <div class="bg-blue-600 p-2 rounded-lg text-white"><i data-lucide="car"></i></div>
-                <span class="font-bold text-xl uppercase">CamperFinder</span>
-            </div>
-            <p class="text-gray-400 text-sm">Il tuo motore di ricerca per la libertà su quattro ruote.</p>
-        </div>
-        <div>
-            <h4 class="font-bold mb-4">Esplora</h4>
-            <ul class="text-gray-400 text-sm space-y-2">
-                <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
-                <li><a href="#" class="hover:text-white transition">Termini d'uso</a></li>
-                <li><a href="#" class="hover:text-white transition">Contatti</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4 class="font-bold mb-4">Newsletter</h4>
-            <div class="flex gap-2">
-                <input type="email" placeholder="La tua email" class="bg-gray-800 border-none p-3 rounded-lg w-full text-sm outline-none">
-                <button class="bg-blue-600 p-3 rounded-lg text-white"><i data-lucide="send" class="w-4 h-4"></i></button>
-            </div>
-        </div>
-    </div>
+<footer class="bg-gray-900 text-white py-12 px-8 mt-20 text-center">
+    <p class="text-gray-400 text-sm">© 2026 CamperFinder Pro - Trova la tua libertà.</p>
 </footer>
 
 <script>
-    // Inizializza icone
     lucide.createIcons();
 
     function eseguiRicerca() {
-        const budget = document.getElementById('maxPrice').value || "2000";
-        const loader = document.getElementById('loader');
-        
-        // Effetto caricamento
-        loader.classList.remove('hidden');
-        document.getElementById('results').style.opacity = '0.3';
-
-        // Reindirizzamento al partner reale
-        setTimeout(() => {
-            window.location.href = https://www.goboony.it/noleggio-camper/italia?max_price=${budget};
-        }, 1200);
+        const budget = document.getElementById('maxPrice').value || "1500";
+        // Apre in una nuova finestra per non far uscire l'utente dal tuo sito
+        const url = https://www.goboony.it/noleggio-camper/italia?max_price=${budget};
+        window.open(url, '_blank');
     }
 
     function vaiAPartner(tipo) {
         let url = "https://www.goboony.it/noleggio-camper/italia";
         if(tipo) url += /${tipo};
-        window.location.href = url;
+        window.open(url, '_blank');
     }
 </script>
 
