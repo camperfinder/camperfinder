@@ -3,174 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anteprima CamperFinder</title>
+    <title>CamperFinder Premium</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
-        .hero-bg { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; }
-        .card-shadow { box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
-        .btn-action { transition: transform 0.1s; cursor: pointer; }
-        .btn-action:active { transform: scale(0.95); }
+        body { font-family: 'Outfit', sans-serif; background-color: #f8fafc; }
+        .hero-section { background: linear-gradient(135deg, #0f172a 0%, #334155 100%); color: white; padding-bottom: 6rem; }
+        .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid #e2e8f0; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+        .card-premium { background: white; border-radius: 1.5rem; overflow: hidden; transition: transform 0.2s; border: 1px solid #f1f5f9; }
+        .card-premium:hover { transform: translateY(-5px); border-color: #3b82f6; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
+        button { cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur border-b border-gray-200">
-        <div class="max-w-6xl mx-auto px-4 h-16 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div class="bg-blue-600 p-2 rounded text-white"><i data-lucide="compass" class="w-5 h-5"></i></div>
-                <span class="font-black text-xl tracking-tight text-slate-900">CAMPER<span class="text-blue-600">FINDER</span></span>
-            </div>
-            <div class="text-xs font-bold uppercase text-green-600 bg-green-100 px-3 py-1 rounded-full animate-pulse">
-                Sistema Attivo
-            </div>
+    <nav class="absolute w-full top-0 z-50 p-6 flex justify-between items-center text-white">
+        <div class="flex items-center gap-2">
+            <div class="bg-blue-600 p-2 rounded-lg"><i data-lucide="compass"></i></div>
+            <span class="font-black text-xl tracking-tight uppercase">Camper<span class="text-blue-400">Finder</span></span>
+        </div>
+        <div class="text-xs font-bold bg-white/10 px-4 py-2 rounded-full border border-white/20 uppercase tracking-widest">
+            Live Demo
         </div>
     </nav>
 
-    <header class="hero-bg pt-32 pb-48 px-4 text-center">
-        <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tight">Il tuo viaggio inizia qui.</h1>
-        <p class="text-slate-400 text-lg max-w-xl mx-auto">Confronta prezzi e disponibilità di Yescapa, Goboony, Indie Campers e Roadsurfer.</p>
+    <header class="hero-section pt-32 px-4 text-center">
+        <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">Il viaggio della vita<br><span class="text-blue-400">inizia qui.</span></h1>
+        <p class="text-slate-300 text-lg max-w-2xl mx-auto mb-10">Confronta istantaneamente Yescapa, Goboony, Indie Campers e Roadsurfer.</p>
+        
+        <div class="max-w-5xl mx-auto glass-panel p-4 rounded-[2rem] text-slate-900">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="bg-slate-50 p-3 rounded-xl text-left border-2 border-transparent focus-within:border-blue-500">
+                    <label class="block text-[10px] font-black uppercase text-slate-400 ml-1">Dove vai?</label>
+                    <input type="text" id="destinazione" placeholder="Italia" class="bg-transparent w-full font-bold outline-none text-sm" oninput="aggiornaLink()">
+                </div>
+                <div class="bg-slate-50 p-3 rounded-xl text-left border-2 border-transparent focus-within:border-blue-500">
+                    <label class="block text-[10px] font-black uppercase text-slate-400 ml-1">Ritiro</label>
+                    <input type="date" id="data_in" class="bg-transparent w-full font-bold outline-none text-sm text-slate-500" onchange="aggiornaLink()">
+                </div>
+                <div class="bg-slate-50 p-3 rounded-xl text-left border-2 border-transparent focus-within:border-blue-500">
+                    <label class="block text-[10px] font-black uppercase text-slate-400 ml-1">Rientro</label>
+                    <input type="date" id="data_out" class="bg-transparent w-full font-bold outline-none text-sm text-slate-500" onchange="aggiornaLink()">
+                </div>
+                <button onclick="scrolla()" class="bg-blue-600 text-white rounded-xl font-black uppercase text-xs tracking-widest hover:bg-blue-700 transition py-4 md:py-0 shadow-lg shadow-blue-500/30">
+                    Trova Offerte
+                </button>
+            </div>
+        </div>
     </header>
 
-    <div class="max-w-5xl mx-auto px-4 -mt-24 relative z-10">
-        <div class="bg-white p-6 rounded-[2rem] shadow-2xl border border-gray-100 grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
-            <div class="bg-slate-50 p-3 rounded-xl border border-transparent focus-within:border-blue-500 transition">
-                <label class="block text-[10px] font-bold uppercase text-slate-400 ml-1">Dove</label>
-                <input type="text" id="destinazione" placeholder="Es. Sardegna" class="bg-transparent w-full text-sm font-bold outline-none text-slate-900">
-            </div>
-            <div class="bg-slate-50 p-3 rounded-xl border border-transparent focus-within:border-blue-500 transition">
-                <label class="block text-[10px] font-bold uppercase text-slate-400 ml-1">Ritiro</label>
-                <input type="date" id="data_inizio" class="bg-transparent w-full text-sm font-bold outline-none text-slate-900 cursor-pointer">
-            </div>
-            <div class="bg-slate-50 p-3 rounded-xl border border-transparent focus-within:border-blue-500 transition">
-                <label class="block text-[10px] font-bold uppercase text-slate-400 ml-1">Rientro</label>
-                <input type="date" id="data_fine" class="bg-transparent w-full text-sm font-bold outline-none text-slate-900 cursor-pointer">
-            </div>
-            <button onclick="simulaRicerca()" class="bg-blue-600 text-white h-full py-4 rounded-xl font-black uppercase text-xs tracking-widest hover:bg-blue-700 btn-action shadow-lg shadow-blue-200">
-                Aggiorna
-            </button>
+    <main id="risultati" class="max-w-7xl mx-auto py-20 px-4">
+        <div class="flex items-end justify-between mb-8">
+            <h2 class="text-3xl font-black text-slate-900">Veicoli Disponibili</h2>
+            <p class="text-sm text-slate-500 font-medium">Prezzi aggiornati oggi</p>
         </div>
-    </div>
 
-    <main class="max-w-6xl mx-auto py-20 px-4">
-        <h2 class="text-2xl font-black text-slate-900 mb-8">Veicoli Disponibili</h2>
-        
-        <div id="griglia" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <div class="card-premium flex flex-col group">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1626202377881-80512eb24a02?w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <span class="absolute top-4 left-4 bg-teal-500 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Goboony</span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="text-xl font-bold mb-1">Ford Nugget Westfalia</h3>
+                    <p class="text-xs text-slate-500 mb-6 font-medium uppercase tracking-wide">Van Compatto • 4 Posti</p>
+                    <div class="mt-auto flex justify-between items-center border-t border-slate-100 pt-4">
+                        <span class="text-2xl font-black text-slate-900">€95<span class="text-xs text-slate-400 font-medium">/notte</span></span>
+                        <a id="btn-goboony" href="https://www.goboony.it/noleggio-camper/italia" target="_blank" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase hover:bg-teal-600 transition">Vedi</a>
+                    </div>
+                </div>
             </div>
+
+            <div class="card-premium flex flex-col group">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1517524008436-bb401ac293b8?w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <span class="absolute top-4 left-4 bg-orange-500 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Yescapa</span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="text-xl font-bold mb-1">Fiat Ducato Family</h3>
+                    <p class="text-xs text-slate-500 mb-6 font-medium uppercase tracking-wide">Camper Mansardato • 6 Posti</p>
+                    <div class="mt-auto flex justify-between items-center border-t border-slate-100 pt-4">
+                        <span class="text-2xl font-black text-slate-900">€120<span class="text-xs text-slate-400 font-medium">/notte</span></span>
+                        <a id="btn-yescapa" href="https://it.yescapa.com/s/italia/" target="_blank" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase hover:bg-orange-500 transition">Vedi</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-premium flex flex-col group">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <span class="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Indie</span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="text-xl font-bold mb-1">VW California T6</h3>
+                    <p class="text-xs text-slate-500 mb-6 font-medium uppercase tracking-wide">Van Iconico • Automatico</p>
+                    <div class="mt-auto flex justify-between items-center border-t border-slate-100 pt-4">
+                        <span class="text-2xl font-black text-slate-900">€110<span class="text-xs text-slate-400 font-medium">/notte</span></span>
+                        <a id="btn-indie" href="https://indiecampers.it/noleggio-camper/italia" target="_blank" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase hover:bg-blue-600 transition">Vedi</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-premium flex flex-col group">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <span class="absolute top-4 left-4 bg-yellow-400 text-black px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Roadsurfer</span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="text-xl font-bold mb-1">Mercedes Marco Polo</h3>
+                    <p class="text-xs text-slate-500 mb-6 font-medium uppercase tracking-wide">Luxury Van • 4 Posti</p>
+                    <div class="mt-auto flex justify-between items-center border-t border-slate-100 pt-4">
+                        <span class="text-2xl font-black text-slate-900">€140<span class="text-xs text-slate-400 font-medium">/notte</span></span>
+                        <a id="btn-road" href="https://roadsurfer.com/it-it/noleggio-camper/" target="_blank" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase hover:bg-yellow-400 hover:text-black transition">Vedi</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </main>
 
-    <footer class="bg-slate-900 text-white py-12 text-center text-sm text-slate-500">
-        &copy; 2026 CamperFinder Pro
+    <footer class="bg-slate-900 text-white py-12 text-center text-xs font-bold uppercase tracking-widest text-slate-500">
+        &copy; 2026 CamperFinder Pro - Powered by AI
     </footer>
 
     <script>
         lucide.createIcons();
 
-        // 1. DATABASE STATICO (Questo assicura che si veda sempre qualcosa)
-        const veicoli = [
-            { nome: "Volkswagen California", partner: "indie", tipo: "Van", prezzo: 105, img: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=800" },
-            { nome: "Fiat Ducato Family", partner: "yescapa", tipo: "Camper", prezzo: 120, img: "https://images.unsplash.com/photo-1517524008436-bb401ac293b8?w=800" },
-            { nome: "Mercedes Marco Polo", partner: "roadsurfer", tipo: "Van", prezzo: 140, img: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800" },
-            { nome: "Ford Nugget", partner: "goboony", tipo: "Van", prezzo: 90, img: "https://images.unsplash.com/photo-1626202377881-80512eb24a02?w=800" },
-            { nome: "Hymer Grand Canyon", partner: "goboony", tipo: "Camper", prezzo: 130, img: "https://images.unsplash.com/photo-1616898953934-4e4b6eb35d08?w=800" },
-            { nome: "Vintage VW Bulli", partner: "yescapa", tipo: "Van", prezzo: 80, img: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800" }
-        ];
-
-        // 2. FUNZIONE PER MOSTRARE LE CARD
-        function mostraVeicoli() {
-            const container = document.getElementById('griglia');
-            container.innerHTML = ""; // Pulisce
-
-            veicoli.forEach(v => {
-                // Colori personalizzati per ogni partner
-                let coloreBtn = "bg-slate-900";
-                let nomePartner = v.partner.toUpperCase();
-                
-                if(v.partner === 'yescapa') coloreBtn = "bg-orange-500";
-                if(v.partner === 'goboony') coloreBtn = "bg-teal-600";
-                if(v.partner === 'roadsurfer') coloreBtn = "bg-yellow-400 text-black";
-                if(v.partner === 'indie') coloreBtn = "bg-blue-800";
-
-                const html = `
-                <div class="bg-white rounded-3xl overflow-hidden card-shadow border border-slate-100 flex flex-col group hover:border-blue-500 transition duration-300">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="${v.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                        <span class="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-slate-900 shadow-sm">${v.tipo}</span>
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-bold text-lg text-slate-900">${v.nome}</h3>
-                            <span class="text-[10px] font-bold bg-slate-50 border border-slate-200 px-2 py-1 rounded text-slate-500 uppercase">${nomePartner}</span>
-                        </div>
-                        <div class="mt-auto pt-6 border-t border-slate-50 flex items-center justify-between">
-                            <div>
-                                <p class="text-[10px] text-slate-400 font-bold uppercase">Da</p>
-                                <p class="text-2xl font-black text-slate-900">€${v.prezzo}</p>
-                            </div>
-                            <button onclick="vaiAlSito('${v.partner}', '${v.tipo}')" class="${coloreBtn} px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest shadow-lg btn-action hover:opacity-90">
-                                Vedi
-                            </button>
-                        </div>
-                    </div>
-                </div>`;
-                container.innerHTML += html;
-            });
-        }
-
-        // 3. FUNZIONE SIMULAZIONE RICERCA
-        function simulaRicerca() {
-            const btn = document.querySelector('button[onclick="simulaRicerca()"]');
-            const original = btn.innerText;
-            btn.innerText = "...";
-            // Piccolo delay per dare feedback all'utente
-            setTimeout(() => {
-                btn.innerText = original;
-                alert("Prezzi aggiornati! Clicca su 'Vedi' per andare al sito partner.");
-            }, 300);
-        }
-
-        // 4. FUNZIONE LINK REALI (Qui avviene la magia)
-        function formatDateIT(iso) {
-            if(!iso) return "";
-            const [y, m, d] = iso.split('-');
-            return ${d}/${m}/${y};
-        }
-
-        function vaiAlSito(partner, tipo) {
-            let loc = document.getElementById('destinazione').value.trim();
-            if(!loc) loc = "Italia"; // Default se vuoto
+        // Questa funzione gira OGNI VOLTA che l'utente tocca un tasto
+        function aggiornaLink() {
+            // 1. Prendi i dati
+            let luogo = document.getElementById('destinazione').value.trim();
+            if(!luogo) luogo = "italia"; // Default se vuoto
             
-            const startISO = document.getElementById('data_inizio').value;
-            const endISO = document.getElementById('data_fine').value;
+            const startISO = document.getElementById('data_in').value;
+            const endISO = document.getElementById('data_out').value;
 
-            let url = "";
+            // 2. Prepara le date per Yescapa (DD/MM/YYYY)
+            let startIT = "", endIT = "";
+            if(startISO) { const [y,m,d] = startISO.split('-'); startIT = ${d}/${m}/${y}; }
+            if(endISO) { const [y,m,d] = endISO.split('-'); endIT = ${d}/${m}/${y}; }
 
-            if(partner === 'goboony') {
-                let cat = (tipo.toLowerCase() === 'van') ? '/van' : '/motorhome';
-                url = https://www.goboony.it/noleggio-camper/${loc}${cat}?arrival=${startISO}&departure=${endISO};
-            }
-            else if(partner === 'yescapa') {
-                const sIT = formatDateIT(startISO);
-                const eIT = formatDateIT(endISO);
-                url = https://it.yescapa.com/s/${loc}/?arrival=${encodeURIComponent(sIT)}&departure=${encodeURIComponent(eIT)};
-            }
-            else if(partner === 'indie') {
-                url = https://indiecampers.it/noleggio-camper/${loc};
-            }
-            else {
-                url = https://roadsurfer.com/it-it/noleggio-camper/;
-            }
+            // 3. AGGIORNA I LINK DEI BOTTONI (HREF)
+            
+            // Goboony
+            document.getElementById('btn-goboony').href = 
+                https://www.goboony.it/noleggio-camper/${luogo}?arrival=${startISO}&departure=${endISO};
 
-            // Apre in nuova scheda
-            window.open(url, '_blank');
+            // Yescapa
+            document.getElementById('btn-yescapa').href = 
+                https://it.yescapa.com/s/${luogo}/?arrival=${encodeURIComponent(startIT)}&departure=${encodeURIComponent(endIT)};
+
+            // Indie (Solo luogo)
+            document.getElementById('btn-indie').href = 
+                https://indiecampers.it/noleggio-camper/${luogo};
+
+            // Roadsurfer (Generico per sicurezza)
+            document.getElementById('btn-road').href = 
+                https://roadsurfer.com/it-it/noleggio-camper/;
         }
 
-        // Carica i veicoli appena apri la pagina
-        window.onload = mostraVeicoli;
-
+        function scrolla() {
+            document.getElementById('risultati').scrollIntoView({ behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
