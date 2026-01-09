@@ -1,256 +1,84 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-<meta charset="UTF-8">
-<title>CamperFinder – Confronta e scegli il miglior camper</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Confronta i noleggi camper più economici. Scopri la migliore scelta e vai al sito ufficiale.">
-
-<style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
-  background: #eef1f5;
-  color: #1d1d1f;
-}
-
-header {
-  background: linear-gradient(135deg, #0a3d62, #3c6382);
-  color: white;
-  padding: 40px 20px;
-  text-align: center;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 36px;
-}
-
-header p {
-  margin-top: 12px;
-  font-size: 18px;
-  opacity: 0.95;
-}
-
-.filters {
-  background: white;
-  max-width: 1100px;
-  margin: -35px auto 30px;
-  padding: 22px;
-  border-radius: 20px;
-  box-shadow: 0 14px 35px rgba(0,0,0,0.15);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.filters input,
-.filters select {
-  padding: 14px;
-  font-size: 16px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  flex: 1;
-  min-width: 180px;
-}
-
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 0 20px 40px;
-}
-
-.card {
-  background: white;
-  border-radius: 20px;
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: 0 14px 35px rgba(0,0,0,0.12);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  position: relative;
-}
-
-.badge {
-  position: absolute;
-  top: -12px;
-  left: -12px;
-  padding: 8px 14px;
-  font-size: 14px;
-  font-weight: bold;
-  border-radius: 14px;
-  color: white;
-}
-
-.badge.best {
-  background: #2ecc71;
-}
-
-.badge.lowest {
-  background: #e74c3c;
-}
-
-.info {
-  max-width: 65%;
-}
-
-.info h3 {
-  margin: 0 0 6px;
-  font-size: 24px;
-}
-
-.info p {
-  margin: 4px 0;
-  color: #555;
-}
-
-.price-box {
-  text-align: right;
-}
-
-.price {
-  font-size: 30px;
-  font-weight: 700;
-  color: #0a3d62;
-}
-
-.button {
-  display: inline-block;
-  margin-top: 14px;
-  padding: 14px 24px;
-  background: #ff9f1a;
-  color: white;
-  text-decoration: none;
-  border-radius: 14px;
-  font-weight: bold;
-}
-
-.button:hover {
-  background: #e58e0b;
-}
-
-@media (max-width: 700px) {
-  .card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .info {
-    max-width: 100%;
-  }
-  .price-box {
-    width: 100%;
-    margin-top: 16px;
-    text-align: left;
-  }
-}
-
-footer {
-  text-align: center;
-  padding: 25px;
-  font-size: 14px;
-  color: #666;
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <h1>CamperFinder</h1>
-  <p>Confronta, scegli, risparmia</p>
-</header>
-
-<div class="filters">
-  <input type="text" id="search" placeholder="Città o compagnia">
-  <select id="type">
-    <option value="">Tutti i tipi</option>
-    <option value="Camper">Camper</option>
-    <option value="Van">Van</option>
-    <option value="Caravan">Caravan</option>
-  </select>
-  <input type="number" id="maxPrice" placeholder="Prezzo massimo (€)">
-</div>
-
-<div class="container" id="results"></div>
-
-<footer>
-  Prezzi indicativi. Prenotazione sempre sui siti ufficiali dei fornitori.
-</footer>
-
 <script>
-const sheetLink = "https://docs.google.com/spreadsheets/d/1b1eqBL0gaSd_mOgdndEDj9Hh3ckad7U78gXIEQ33Yvc/edit?usp=sharing";
-const sheetId = sheetLink.split("/")[5];
+// SOSTITUISCI QUESTO ID
+const sheetId = "https://docs.google.com/spreadsheets/d/1b1eqBL0gaSd_mOgdndEDj9Hh3ckad7U78gXIEQ33Yvc/edit?usp=sharing"; 
 const url = https://opensheet.elk.sh/${sheetId}/Foglio1;
 
+const results = document.getElementById("results");
+const search = document.getElementById("search");
+const type = document.getElementById("type");
+const maxPrice = document.getElementById("maxPrice");
+
+let dataGlobal = []; // Variabile per contenere i dati scaricati
+
 fetch(url)
-  .then(res => res.json())
+  .then(res => {
+    if (!res.ok) throw new Error("Errore nel caricamento dati. Controlla l'ID del foglio.");
+    return res.json();
+  })
   .then(data => {
-    data.forEach(i => i.Prezzo = Number(i.Prezzo));
+    // Trasforma i prezzi in numeri e pulisce i dati
+    dataGlobal = data.map(i => ({
+      ...i,
+      Prezzo: Number(i.Prezzo.toString().replace(',', '.')) // Gestisce anche virgole italiane
+    }));
 
-    const lowestPrice = Math.min(...data.map(i => i.Prezzo));
+    const lowestPrice = Math.min(...dataGlobal.map(i => i.Prezzo));
 
-    data.forEach(i => {
+    // Calcolo punteggio per "Migliore Scelta"
+    dataGlobal.forEach(i => {
       i.score = 0;
       if (i.Tipo === "Van") i.score += 1;
       if (i.Prezzo <= lowestPrice * 1.15) i.score += 2;
     });
 
-    data.sort((a, b) => {
-      if (b.score !== a.score) return b.score - a.score;
-      return a.Prezzo - b.Prezzo;
+    // Ordinamento iniziale
+    dataGlobal.sort((a, b) => (b.score - a.score) || (a.Prezzo - b.Prezzo));
+
+    render(dataGlobal, lowestPrice);
+
+    // Event Listeners per i filtri
+    [search, type, maxPrice].forEach(el => {
+      el.addEventListener("input", () => filter(lowestPrice));
     });
-
-    const results = document.getElementById("results");
-    const search = document.getElementById("search");
-    const type = document.getElementById("type");
-    const maxPrice = document.getElementById("maxPrice");
-
-    function render(items) {
-      results.innerHTML = "";
-      items.forEach(i => {
-        results.innerHTML += `
-          <div class="card">
-            ${i.score >= 3 ? <div class="badge best">MIGLIORE SCELTA</div> : ""}
-            ${i.Prezzo === lowestPrice ? <div class="badge lowest">PREZZO PIÙ BASSO</div> : ""}
-            <div class="info">
-              <h3>${i.Nome}</h3>
-              <p>${i.Città} • ${i.Tipo}</p>
-            </div>
-            <div class="price-box">
-              <div class="price">€${i.Prezzo}/giorno</div>
-              <a class="button" href="${i.Link}" target="_blank">Vai all’offerta</a>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    function filter() {
-      let items = data;
-
-      if (search.value)
-        items = items.filter(i =>
-          i.Nome.toLowerCase().includes(search.value.toLowerCase()) ||
-          i.Città.toLowerCase().includes(search.value.toLowerCase())
-        );
-
-      if (type.value)
-        items = items.filter(i => i.Tipo === type.value);
-
-      if (maxPrice.value)
-        items = items.filter(i => i.Prezzo <= Number(maxPrice.value));
-
-      render(items);
-    }
-
-    [search, type, maxPrice].forEach(el => el.addEventListener("input", filter));
-    render(data);
+  })
+  .catch(err => {
+    results.innerHTML = <p style="text-align:center; color:red;">Impossibile caricare i dati. Verifica l'ID del foglio e i permessi di condivisione.</p>;
+    console.error(err);
   });
-</script>
 
-</body>
-</html>
+function render(items, lowestPrice) {
+  results.innerHTML = items.length ? "" : "<p>Nessun risultato trovato.</p>";
+  items.forEach(i => {
+    results.innerHTML += `
+      <div class="card">
+        ${i.score >= 3 ? <div class="badge best">MIGLIORE SCELTA</div> : ""}
+        ${i.Prezzo === lowestPrice ? <div class="badge lowest">PREZZO PIÙ BASSO</div> : ""}
+        <div class="info">
+          <h3>${i.Nome}</h3>
+          <p>${i.Città} • <strong>${i.Tipo}</strong></p>
+        </div>
+        <div class="price-box">
+          <div class="price">€${i.Prezzo}/giorno</div>
+          <a class="button" href="${i.Link}" target="_blank">Vai all’offerta</a>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function filter(lowestPrice) {
+  let filtered = dataGlobal.filter(i => {
+    const matchSearch = !search.value || 
+      i.Nome.toLowerCase().includes(search.value.toLowerCase()) ||
+      i.Città.toLowerCase().includes(search.value.toLowerCase());
+    
+    const matchType = !type.value || i.Tipo === type.value;
+    
+    const matchPrice = !maxPrice.value || i.Prezzo <= Number(maxPrice.value);
+
+    return matchSearch && matchType && matchPrice;
+  });
+
+  render(filtered, lowestPrice);
+}
+</script>
