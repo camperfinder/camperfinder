@@ -188,7 +188,16 @@ fetch(url)
   .then(data => {
     data.forEach(i => i.Prezzo = Number(i.Prezzo));
     data.sort((a, b) => a.Prezzo - b.Prezzo);
+data.forEach(i => {
+  i.score = 0;
+  if (i.Tipo === "Van") i.score += 1;
+  if (i.Prezzo <= data[0].Prezzo * 1.15) i.score += 2;
+});
 
+data.sort((a, b) => {
+  if (b.score !== a.score) return b.score - a.score;
+  return a.Prezzo - b.Prezzo;
+});
     const lowestPrice = data[0]?.Prezzo;
 
     const results = document.getElementById("results");
@@ -201,7 +210,7 @@ fetch(url)
       items.forEach(i => {
         results.innerHTML += `
           <div class="card">
-            ${i.Prezzo === lowestPrice ? <div class="badge">PREZZO PIÙ BASSO</div> : ""}
+            ${i.score >= 3 ? <div class="badge" style="background:#2ecc71">MIGLIORE SCELTA</div> : ""
             <div class="info">
               <h3>${i.Nome}</h3>
               <p>${i.Città} • ${i.Tipo}</p>
