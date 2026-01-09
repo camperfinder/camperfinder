@@ -3,120 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CamperFinder Pro | Confronta e Risparmia</title>
+    <title>CamperFinder Pro | Il Comparatore Definitivo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f9fafb; }
-        .search-card { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); border-radius: 2rem; }
-        .partner-card { transition: transform 0.3s ease; border-radius: 2.5rem; background: white; border: 1px solid #e5e7eb; }
-        .partner-card:hover { transform: translateY(-10px); border-color: #2563eb; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+        .premium-card { transition: all 0.3s ease; border-radius: 2.5rem; background: white; border: 1px solid #e2e8f0; }
+        .premium-card:hover { transform: translateY(-8px); border-color: #3b82f6; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .search-container { box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.1); border-radius: 3rem; }
     </style>
 </head>
 <body>
 
-<nav class="bg-white border-b border-gray-100 py-4 px-8 flex justify-between items-center sticky top-0 z-50">
+<nav class="bg-white/80 backdrop-blur-md border-b border-gray-100 py-5 px-10 flex justify-between items-center sticky top-0 z-50">
     <div class="flex items-center gap-2">
-        <div class="bg-blue-600 p-2 rounded-lg text-white"><i data-lucide="car"></i></div>
-        <span class="font-extrabold text-xl tracking-tighter uppercase italic">CAMPER<span class="text-blue-600">FINDER</span></span>
+        <div class="bg-blue-600 p-2 rounded-xl text-white"><i data-lucide="car"></i></div>
+        <span class="font-extrabold text-2xl tracking-tighter uppercase italic text-gray-900">CAMPER<span class="text-blue-600 font-black">FINDER</span></span>
     </div>
-    <div class="flex gap-6 text-sm font-bold text-gray-500 uppercase tracking-widest">
-        <a href="#esplora" class="hover:text-blue-600">Esplora</a>
-        <a href="#contatti" class="hover:text-blue-600">Privacy</a>
+    <div class="hidden md:flex gap-8 text-xs font-black uppercase tracking-widest text-gray-500">
+        <a href="#esplora" class="hover:text-blue-600 transition">Esplora</a>
+        <a href="#footer" class="hover:text-blue-600 transition">Contatti</a>
+        <a href="#footer" class="hover:text-blue-600 transition">Privacy</a>
     </div>
 </nav>
 
-<header class="pt-20 pb-32 text-center px-4 bg-white">
-    <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tighter text-gray-900">
-        Il miglior prezzo per il <br><span class="text-blue-600">tuo prossimo Van</span>
+<header class="pt-24 pb-40 text-center px-6 bg-white">
+    <h1 class="text-5xl md:text-7xl font-black mb-8 tracking-tighter text-gray-900 leading-[1.1]">
+        Viaggia in Van al <br><span class="text-blue-600">miglior prezzo.</span>
     </h1>
-    <p class="text-gray-500 text-lg max-w-2xl mx-auto font-medium">Confrontiamo i leader del noleggio: Yescapa, Indie Campers, Goboony e Roadsurfer.</p>
+    <p class="text-gray-400 text-lg max-w-2xl mx-auto font-semibold uppercase tracking-wide">Compara Yescapa, Indie Campers, Goboony e Roadsurfer.</p>
 </header>
 
-<div class="max-w-6xl mx-auto px-4 -mt-20">
-    <div class="bg-white p-8 search-card border border-gray-100">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
-            <div>
-                <label class="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-2">Destinazione</label>
-                <input type="text" id="d" placeholder="Es. Sardegna" class="w-full p-4 bg-gray-50 rounded-2xl text-sm font-bold outline-none focus:ring-2 focus:ring-blue-500 transition">
+<div class="max-w-6xl mx-auto px-4 -mt-24">
+    <div class="bg-white p-10 search-container border border-gray-100">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="flex flex-col gap-2">
+                <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-2">Destinazione</label>
+                <input type="text" id="loc" placeholder="Es. Sardegna" class="w-full p-5 bg-gray-50 rounded-2xl text-sm font-bold outline-none border-2 border-transparent focus:border-blue-500 transition">
             </div>
-            <div>
-                <label class="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-2">Ritiro</label>
-                <input type="date" id="s" class="w-full p-4 bg-gray-50 rounded-2xl text-sm font-bold outline-none focus:ring-2 focus:ring-blue-500 transition">
+            <div class="flex flex-col gap-2">
+                <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-2">Ritiro</label>
+                <input type="date" id="start_date" class="w-full p-5 bg-gray-50 rounded-2xl text-sm font-bold outline-none border-2 border-transparent focus:border-blue-500 transition">
             </div>
-            <div>
-                <label class="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-2">Rientro</label>
-                <input type="date" id="e" class="w-full p-4 bg-gray-50 rounded-2xl text-sm font-bold outline-none focus:ring-2 focus:ring-blue-500 transition">
+            <div class="flex flex-col gap-2">
+                <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-2">Rientro</label>
+                <input type="date" id="end_date" class="w-full p-5 bg-gray-50 rounded-2xl text-sm font-bold outline-none border-2 border-transparent focus:border-blue-500 transition">
             </div>
-            <button onclick="vai('goboony')" class="w-full bg-blue-600 text-white p-5 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-blue-700 transition shadow-lg shadow-blue-200">
-                Compara Ora
-            </button>
+            <div class="flex flex-col justify-end pb-1">
+                <button onclick="ricercaDiretta('goboony')" class="w-full bg-blue-600 text-white p-5 rounded-2xl font-black uppercase text-xs tracking-[0.2em] hover:bg-blue-700 transition-all shadow-xl shadow-blue-200 active:scale-95">
+                    Compara Ora
+                </button>
+            </div>
         </div>
     </div>
 </div>
 
-<main id="esplora" class="max-w-6xl mx-auto py-24 px-4">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="partner-card p-10 text-center flex flex-col">
-            <h3 class="font-black text-2xl mb-2 text-gray-900">YESCAPA</h3>
-            <p class="text-xs text-gray-400 mb-8 font-bold uppercase tracking-widest">Noleggio Privati</p>
-            <button onclick="vai('yescapa')" class="mt-auto w-full bg-gray-900 text-white py-4 rounded-2xl font-black text-xs uppercase hover:bg-blue-600 transition">Cerca Qui</button>
+<main id="esplora" class="max-w-6xl mx-auto py-32 px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div class="premium-card p-10 text-center flex flex-col">
+            <div class="font-black text-2xl mb-2 text-gray-900 tracking-tighter">YESCAPA</div>
+            <p class="text-[10px] text-gray-400 mb-10 font-black uppercase tracking-[0.2em]">Noleggio da Privati</p>
+            <button onclick="ricercaDiretta('yescapa')" class="mt-auto w-full bg-gray-900 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 transition active:scale-95">Vedi Prezzi</button>
         </div>
-        <div class="partner-card p-10 text-center flex flex-col">
-            <h3 class="font-black text-2xl mb-2 text-gray-900 italic">INDIE</h3>
-            <p class="text-xs text-gray-400 mb-8 font-bold uppercase tracking-widest">Flotta Pro</p>
-            <button onclick="vai('indie')" class="mt-auto w-full bg-gray-900 text-white py-4 rounded-2xl font-black text-xs uppercase hover:bg-blue-600 transition">Cerca Qui</button>
+        <div class="premium-card p-10 text-center flex flex-col">
+            <div class="font-black text-2xl mb-2 text-gray-900 tracking-tighter italic">INDIE</div>
+            <p class="text-[10px] text-gray-400 mb-10 font-black uppercase tracking-[0.2em]">Flotta Professionale</p>
+            <button onclick="ricercaDiretta('indie')" class="mt-auto w-full bg-gray-900 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 transition active:scale-95">Vedi Prezzi</button>
         </div>
-        <div class="partner-card p-10 text-center flex flex-col border-blue-200 bg-blue-50/30">
-            <h3 class="font-black text-2xl mb-2 text-teal-600">GOBOONY</h3>
-            <p class="text-xs text-gray-400 mb-8 font-bold uppercase tracking-widest">Community #1</p>
-            <button onclick="vai('goboony')" class="mt-auto w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xs uppercase hover:bg-gray-900 transition">Cerca Qui</button>
+        <div class="premium-card p-10 text-center flex flex-col bg-blue-50/50 border-blue-100">
+            <div class="font-black text-2xl mb-2 text-teal-600 tracking-tighter italic uppercase">Goboony</div>
+            <p class="text-[10px] text-gray-400 mb-10 font-black uppercase tracking-[0.2em]">Condivisione Camper</p>
+            <button onclick="ricercaDiretta('goboony')" class="mt-auto w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-gray-900 transition active:scale-95">Vedi Prezzi</button>
         </div>
-        <div class="partner-card p-10 text-center flex flex-col">
-            <h3 class="font-black text-2xl mb-2 text-orange-500 italic">ROAD</h3>
-            <p class="text-xs text-gray-400 mb-8 font-bold uppercase tracking-widest">Stile & Van</p>
-            <button onclick="vai('roadsurfer')" class="mt-auto w-full bg-gray-900 text-white py-4 rounded-2xl font-black text-xs uppercase hover:bg-blue-600 transition">Cerca Qui</button>
+        <div class="premium-card p-10 text-center flex flex-col">
+            <div class="font-black text-2xl mb-2 text-orange-500 tracking-tighter italic">ROAD</div>
+            <p class="text-[10px] text-gray-400 mb-10 font-black uppercase tracking-[0.2em]">Stile & Adventure</p>
+            <button onclick="ricercaDiretta('roadsurfer')" class="mt-auto w-full bg-gray-900 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 transition active:scale-95">Vedi Prezzi</button>
         </div>
     </div>
 </main>
 
-<footer id="contatti" class="bg-gray-900 text-white py-20 px-10">
-    <div class="max-w-6xl mx-auto text-center">
-        <p class="text-gray-500 text-sm mb-6">© 2026 CamperFinder Pro - Il comparatore indipendente.</p>
-        <div class="flex justify-center gap-10 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
-            <a href="#" class="hover:text-white transition">Privacy</a>
-            <a href="#" class="hover:text-white transition">Termini</a>
-            <a href="#" class="hover:text-white transition">Supporto</a>
+<footer id="footer" class="bg-gray-900 text-white py-24 px-10">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20">
+        <div>
+            <div class="flex items-center gap-2 mb-8">
+                <div class="bg-blue-600 p-2 rounded-xl text-white"><i data-lucide="car"></i></div>
+                <span class="font-extrabold text-2xl uppercase italic">CAMPERFINDER</span>
+            </div>
+            <p class="text-gray-400 font-medium leading-relaxed">Il punto di riferimento per confrontare i prezzi del noleggio camper. Semplice, veloce, indipendente.</p>
+        </div>
+        <div class="flex flex-col md:items-end gap-10">
+            <div class="flex gap-10 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">
+                <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition">Contatti</a>
+            </div>
+            <p class="text-gray-600 text-xs font-bold uppercase tracking-widest">© 2026 CamperFinder Pro</p>
         </div>
     </div>
 </footer>
 
 <script>
-    // Carica le icone Lucide
     lucide.createIcons();
 
-    function vai(p) {
-        // Prendo i valori dagli ID ultra-corti per non sbagliare
-        const loc = document.getElementById('d').value || "italia";
-        const inizio = document.getElementById('s').value;
-        const fine = document.getElementById('e').value;
+    function ricercaDiretta(partner) {
+        const d = document.getElementById('loc').value.trim() || "italia";
+        const s = document.getElementById('start_date').value;
+        const e = document.getElementById('end_date').value;
 
-        let url = "";
+        let finalUrl = "";
 
-        if (p === 'yescapa') {
-            url = "https://it.yescapa.com/s/" + loc + "/?arrival=" + inizio + "&departure=" + fine;
-        } else if (p === 'indie') {
-            url = "https://indiecampers.it/noleggio-camper/" + loc;
-        } else if (p === 'roadsurfer') {
-            url = "https://roadsurfer.com/it-it/noleggio-camper/";
+        if (partner === 'yescapa') {
+            finalUrl = https://it.yescapa.com/s/${d}/?arrival=${s}&departure=${e};
+        } else if (partner === 'indie') {
+            finalUrl = https://indiecampers.it/noleggio-camper/${d};
+        } else if (partner === 'roadsurfer') {
+            finalUrl = https://roadsurfer.com/it-it/noleggio-camper/;
         } else {
-            // Default Goboony
-            url = "https://www.goboony.it/noleggio-camper/" + loc + "?arrival=" + inizio + "&departure=" + fine;
+            finalUrl = https://www.goboony.it/noleggio-camper/${d}?arrival=${s}&departure=${e};
         }
 
-        // Apertura link
-        window.location.href = url;
+        // Il comando fondamentale: sposta la pagina corrente al sito del partner
+        // In questo modo il browser non può bloccare l'azione.
+        window.location.assign(finalUrl);
     }
 </script>
 
