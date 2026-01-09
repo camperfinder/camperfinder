@@ -25,7 +25,7 @@
             <span class="font-black text-xl tracking-tight uppercase">Camper<span class="text-blue-400">Finder</span></span>
         </div>
         <div class="text-xs font-bold bg-white/10 px-4 py-2 rounded-full border border-white/20 uppercase tracking-widest">
-            Live Demo
+            Live Search
         </div>
     </nav>
 
@@ -37,18 +37,18 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div class="bg-slate-50 p-3 rounded-xl text-left border-2 border-transparent focus-within:border-blue-500">
                     <label class="block text-[10px] font-black uppercase text-slate-400 ml-1">Dove vai?</label>
-                    <input type="text" id="destinazione" placeholder="Italia" class="bg-transparent w-full font-bold outline-none text-sm" oninput="aggiornaLink()">
+                    <input type="text" id="destinazione" placeholder="Italia" class="bg-transparent w-full font-bold outline-none text-sm" oninput="aggiornaTuttiILink()">
                 </div>
                 <div class="bg-slate-50 p-3 rounded-xl text-left border-2 border-transparent focus-within:border-blue-500">
                     <label class="block text-[10px] font-black uppercase text-slate-400 ml-1">Ritiro</label>
-                    <input type="date" id="data_in" class="bg-transparent w-full font-bold outline-none text-sm text-slate-500" onchange="aggiornaLink()">
+                    <input type="date" id="data_in" class="bg-transparent w-full font-bold outline-none text-sm text-slate-500" onchange="aggiornaTuttiILink()">
                 </div>
                 <div class="bg-slate-50 p-3 rounded-xl text-left border-2 border-transparent focus-within:border-blue-500">
                     <label class="block text-[10px] font-black uppercase text-slate-400 ml-1">Rientro</label>
-                    <input type="date" id="data_out" class="bg-transparent w-full font-bold outline-none text-sm text-slate-500" onchange="aggiornaLink()">
+                    <input type="date" id="data_out" class="bg-transparent w-full font-bold outline-none text-sm text-slate-500" onchange="aggiornaTuttiILink()">
                 </div>
-                <button onclick="scrolla()" class="bg-blue-600 text-white rounded-xl font-black uppercase text-xs tracking-widest hover:bg-blue-700 transition py-4 md:py-0 shadow-lg shadow-blue-500/30">
-                    Trova Offerte
+                <button onclick="cercaDiretta('goboony')" class="bg-blue-600 text-white rounded-xl font-black uppercase text-xs tracking-widest hover:bg-blue-700 transition py-4 md:py-0 shadow-lg shadow-blue-500/30">
+                    Cerca Ora
                 </button>
             </div>
         </div>
@@ -56,8 +56,8 @@
 
     <main id="risultati" class="max-w-7xl mx-auto py-20 px-4">
         <div class="flex items-end justify-between mb-8">
-            <h2 class="text-3xl font-black text-slate-900">Veicoli Disponibili</h2>
-            <p class="text-sm text-slate-500 font-medium">Prezzi aggiornati oggi</p>
+            <h2 class="text-3xl font-black text-slate-900">Partner Disponibili</h2>
+            <p class="text-sm text-slate-500 font-medium">Link diretti ai fornitori</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -72,7 +72,7 @@
                     <p class="text-xs text-slate-500 mb-6 font-medium uppercase tracking-wide">Van Compatto • 4 Posti</p>
                     <div class="mt-auto flex justify-between items-center border-t border-slate-100 pt-4">
                         <span class="text-2xl font-black text-slate-900">€95<span class="text-xs text-slate-400 font-medium">/notte</span></span>
-                        <a id="btn-goboony" href="https://www.goboony.it/noleggio-camper/italia" target="_blank" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase hover:bg-teal-600 transition">Vedi</a>
+                        <a id="btn-goboony" href="https://www.goboony.it/noleggio-camper/italia" target="_blank" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase hover:bg-teal-600 transition">Vedi Offerta</a>
                     </div>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                     <p class="text-xs text-slate-500 mb-6 font-medium uppercase tracking-wide">Camper Mansardato • 6 Posti</p>
                     <div class="mt-auto flex justify-between items-center border-t border-slate-100 pt-4">
                         <span class="text-2xl font-black text-slate-900">€120<span class="text-xs text-slate-400 font-medium">/notte</span></span>
-                        <a id="btn-yescapa" href="https://it.yescapa.com/s/italia/" target="_blank" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase hover:bg-orange-500 transition">Vedi</a>
+                        <a id="btn-yescapa" href="https://it.yescapa.com/s/italia/" target="_blank" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase hover:bg-orange-500 transition">Vedi Offerta</a>
                     </div>
                 </div>
             </div>
@@ -102,22 +102,7 @@
                     <p class="text-xs text-slate-500 mb-6 font-medium uppercase tracking-wide">Van Iconico • Automatico</p>
                     <div class="mt-auto flex justify-between items-center border-t border-slate-100 pt-4">
                         <span class="text-2xl font-black text-slate-900">€110<span class="text-xs text-slate-400 font-medium">/notte</span></span>
-                        <a id="btn-indie" href="https://indiecampers.it/noleggio-camper/italia" target="_blank" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase hover:bg-blue-600 transition">Vedi</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-premium flex flex-col group">
-                <div class="h-64 overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    <span class="absolute top-4 left-4 bg-yellow-400 text-black px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Roadsurfer</span>
-                </div>
-                <div class="p-6 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold mb-1">Mercedes Marco Polo</h3>
-                    <p class="text-xs text-slate-500 mb-6 font-medium uppercase tracking-wide">Luxury Van • 4 Posti</p>
-                    <div class="mt-auto flex justify-between items-center border-t border-slate-100 pt-4">
-                        <span class="text-2xl font-black text-slate-900">€140<span class="text-xs text-slate-400 font-medium">/notte</span></span>
-                        <a id="btn-road" href="https://roadsurfer.com/it-it/noleggio-camper/" target="_blank" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase hover:bg-yellow-400 hover:text-black transition">Vedi</a>
+                        <a id="btn-indie" href="https://indiecampers.it/noleggio-camper/italia" target="_blank" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase hover:bg-blue-600 transition">Vedi Offerta</a>
                     </div>
                 </div>
             </div>
@@ -132,41 +117,45 @@
     <script>
         lucide.createIcons();
 
-        // Questa funzione gira OGNI VOLTA che l'utente tocca un tasto
-        function aggiornaLink() {
-            // 1. Prendi i dati
+        // Funzione per il TASTO GRANDE BLU
+        function cercaDiretta(partner) {
+            // Prende i dati attuali
             let luogo = document.getElementById('destinazione').value.trim();
-            if(!luogo) luogo = "italia"; // Default se vuoto
+            if(!luogo) luogo = "italia";
+            const startISO = document.getElementById('data_in').value;
+            const endISO = document.getElementById('data_out').value;
+            
+            // Crea il link per Goboony (il più affidabile per la ricerca diretta)
+            let url = https://www.goboony.it/noleggio-camper/${luogo}?arrival=${startISO}&departure=${endISO};
+            
+            // Va al sito
+            window.location.href = url;
+        }
+
+        // Funzione che aggiorna i link dei tasti "VEDI OFFERTA" in basso
+        function aggiornaTuttiILink() {
+            let luogo = document.getElementById('destinazione').value.trim();
+            if(!luogo) luogo = "italia";
             
             const startISO = document.getElementById('data_in').value;
             const endISO = document.getElementById('data_out').value;
 
-            // 2. Prepara le date per Yescapa (DD/MM/YYYY)
+            // Formattazione Data per Yescapa (DD/MM/YYYY)
             let startIT = "", endIT = "";
             if(startISO) { const [y,m,d] = startISO.split('-'); startIT = ${d}/${m}/${y}; }
             if(endISO) { const [y,m,d] = endISO.split('-'); endIT = ${d}/${m}/${y}; }
 
-            // 3. AGGIORNA I LINK DEI BOTTONI (HREF)
-            
-            // Goboony
+            // AGGIORNA HREF GOBOONY
             document.getElementById('btn-goboony').href = 
                 https://www.goboony.it/noleggio-camper/${luogo}?arrival=${startISO}&departure=${endISO};
 
-            // Yescapa
+            // AGGIORNA HREF YESCAPA
             document.getElementById('btn-yescapa').href = 
                 https://it.yescapa.com/s/${luogo}/?arrival=${encodeURIComponent(startIT)}&departure=${encodeURIComponent(endIT)};
 
-            // Indie (Solo luogo)
+            // AGGIORNA HREF INDIE
             document.getElementById('btn-indie').href = 
                 https://indiecampers.it/noleggio-camper/${luogo};
-
-            // Roadsurfer (Generico per sicurezza)
-            document.getElementById('btn-road').href = 
-                https://roadsurfer.com/it-it/noleggio-camper/;
-        }
-
-        function scrolla() {
-            document.getElementById('risultati').scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
