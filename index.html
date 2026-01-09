@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CamperFinder | Search Engine</title>
+    <title>CamperFinder Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
         body { font-family: 'Outfit', sans-serif; background-color: #f8fafc; }
-        .hero { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; padding-bottom: 8rem; }
-        .search-container { background: white; border-radius: 2rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3); border: 1px solid #e2e8f0; }
+        .hero { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding-bottom: 8rem; }
+        .search-box { background: white; border-radius: 2rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); border: 4px solid rgba(255,255,255,0.1); }
         .card { background: white; border: 1px solid #e2e8f0; border-radius: 1.5rem; overflow: hidden; transition: all 0.2s; }
         .card:hover { transform: translateY(-5px); border-color: #3b82f6; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
     </style>
@@ -20,34 +20,37 @@
 
     <nav class="absolute w-full top-0 z-50 p-6 flex justify-between items-center text-white">
         <div class="flex items-center gap-2">
-            <div class="bg-blue-600 p-2 rounded-lg"><i data-lucide="map"></i></div>
+            <div class="bg-blue-600 p-2 rounded-lg"><i data-lucide="compass"></i></div>
             <span class="font-black text-xl tracking-tight uppercase">Camper<span class="text-blue-500">Finder</span></span>
+        </div>
+        <div class="text-[10px] font-bold bg-white/10 px-3 py-1 rounded-full border border-white/20 uppercase tracking-widest animate-pulse">
+            System Ready
         </div>
     </nav>
 
     <header class="hero pt-32 px-4 text-center">
-        <h1 class="text-5xl md:text-7xl font-black mb-6">Parti per l'avventura.</h1>
-        <p class="text-slate-400 text-lg mb-10">Confronta i migliori van in un click.</p>
+        <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tight">Il tuo viaggio<br><span class="text-blue-500">inizia adesso.</span></h1>
+        <p class="text-slate-400 text-lg mb-10">Confronta Yescapa, Indie Campers e Roadsurfer.</p>
         
-        <div class="max-w-4xl mx-auto search-container p-6 text-slate-900 relative z-20">
+        <div class="max-w-4xl mx-auto search-box p-6 text-slate-900 relative z-20">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 
                 <div class="bg-slate-50 p-3 rounded-xl border-2 border-transparent focus-within:border-blue-500 text-left">
-                    <label class="block text-[10px] font-black uppercase text-slate-400 ml-1">Dove?</label>
-                    <input type="text" id="luogo" placeholder="Es. Milano" class="bg-transparent w-full font-bold outline-none text-sm" oninput="aggiorna()">
+                    <label class="block text-[10px] font-black uppercase text-slate-400 ml-1">Destinazione</label>
+                    <input type="text" id="luogo" placeholder="Es. Milano" class="bg-transparent w-full font-bold outline-none text-sm" oninput="aggiornaLink()">
                 </div>
 
                 <div class="bg-slate-50 p-3 rounded-xl border-2 border-transparent focus-within:border-blue-500 text-left">
                     <label class="block text-[10px] font-black uppercase text-slate-400 ml-1">Ritiro</label>
-                    <input type="date" id="data1" class="bg-transparent w-full font-bold outline-none text-sm text-slate-500" onchange="aggiorna()">
+                    <input type="date" id="data1" class="bg-transparent w-full font-bold outline-none text-sm text-slate-500" onchange="aggiornaLink()">
                 </div>
 
                 <div class="bg-slate-50 p-3 rounded-xl border-2 border-transparent focus-within:border-blue-500 text-left">
                     <label class="block text-[10px] font-black uppercase text-slate-400 ml-1">Rientro</label>
-                    <input type="date" id="data2" class="bg-transparent w-full font-bold outline-none text-sm text-slate-500" onchange="aggiorna()">
+                    <input type="date" id="data2" class="bg-transparent w-full font-bold outline-none text-sm text-slate-500" onchange="aggiornaLink()">
                 </div>
 
-                <a id="btn-main" href="https://it.yescapa.com/" target="_blank" class="bg-blue-600 text-white rounded-xl font-black uppercase text-xs tracking-widest hover:bg-blue-700 transition flex items-center justify-center py-4 md:py-0 shadow-xl shadow-blue-500/20">
+                <a id="btn-main" href="https://www.yescapa.it/" target="_blank" class="bg-blue-600 text-white rounded-xl font-black uppercase text-xs tracking-widest hover:bg-blue-700 transition flex items-center justify-center py-4 md:py-0 shadow-lg shadow-blue-500/30">
                     CERCA ORA
                 </a>
             </div>
@@ -64,8 +67,8 @@
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                     <h3 class="text-xl font-bold text-slate-900">Noleggio tra Privati</h3>
-                    <p class="text-xs text-slate-500 mb-6">Risparmia fino al 40% sul noleggio.</p>
-                    <a id="link-yescapa" href="https://it.yescapa.com/" target="_blank" class="mt-auto bg-slate-900 text-white block text-center py-3 rounded-xl font-bold text-xs uppercase hover:bg-orange-500 transition">
+                    <p class="text-xs text-slate-500 mb-6 font-medium">La scelta più economica e autentica.</p>
+                    <a id="link-yescapa" href="https://www.yescapa.it/" target="_blank" class="mt-auto bg-slate-900 text-white block text-center py-3 rounded-xl font-bold text-xs uppercase hover:bg-orange-500 transition">
                         Vedi Offerte
                     </a>
                 </div>
@@ -78,7 +81,7 @@
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                     <h3 class="text-xl font-bold text-slate-900">Flotta Professionale</h3>
-                    <p class="text-xs text-slate-500 mb-6">Veicoli nuovi e assistenza 24/7.</p>
+                    <p class="text-xs text-slate-500 mb-6 font-medium">Van moderni e assistenza inclusa.</p>
                     <a id="link-indie" href="https://indiecampers.it/" target="_blank" class="mt-auto bg-slate-900 text-white block text-center py-3 rounded-xl font-bold text-xs uppercase hover:bg-blue-600 transition">
                         Vedi Offerte
                     </a>
@@ -92,7 +95,7 @@
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                     <h3 class="text-xl font-bold text-slate-900">Stile & Design</h3>
-                    <p class="text-xs text-slate-500 mb-6">I van colorati più famosi d'Europa.</p>
+                    <p class="text-xs text-slate-500 mb-6 font-medium">I van colorati più famosi d'Europa.</p>
                     <a id="link-road" href="https://roadsurfer.com/it-it/noleggio-camper/" target="_blank" class="mt-auto bg-slate-900 text-white block text-center py-3 rounded-xl font-bold text-xs uppercase hover:bg-yellow-400 hover:text-black transition">
                         Vedi Offerte
                     </a>
@@ -102,41 +105,51 @@
         </div>
     </main>
 
-    <footer class="text-center py-12 text-slate-400 text-xs font-bold uppercase tracking-widest">
-        © 2026 CamperFinder Pro
+    <footer class="text-center py-12 text-slate-400 text-[10px] font-bold uppercase tracking-widest">
+        © 2026 CamperFinder Pro - Aggiornato Ora
     </footer>
 
     <script>
         lucide.createIcons();
 
-        function aggiorna() {
-            // 1. Prendi i dati
+        function aggiornaLink() {
+            // 1. INPUT Dati
             let dove = document.getElementById('luogo').value.trim();
-            if(!dove) dove = "italia"; // Default sicuro
+            // Se vuoto, lasciamo vuoto o mettiamo Italia per Yescapa
+            
+            const dataIn = document.getElementById('data1').value;
+            const dataOut = document.getElementById('data2').value;
 
-            const d1 = document.getElementById('data1').value; // YYYY-MM-DD
-            const d2 = document.getElementById('data2').value; // YYYY-MM-DD
-
-            // 2. Prepara le date per YESCAPA (Giorno/Mese/Anno)
+            // 2. FORMATTAZIONE DATA PER YESCAPA (Fondamentale: DD/MM/YYYY)
+            // Usiamo parametri query standard: arrival_date e departure_date
             let startIT = "", endIT = "";
-            if(d1) { const [y,m,d] = d1.split('-'); startIT = ${d}/${m}/${y}; }
-            if(d2) { const [y,m,d] = d2.split('-'); endIT = ${d}/${m}/${y}; }
-
-            // 3. CREA I LINK
-            // Link Yescapa (usato sia nel tasto grande che nella card)
-            const yescapaUrl = https://it.yescapa.com/s/${dove}/?arrival=${encodeURIComponent(startIT)}&departure=${encodeURIComponent(endIT)};
             
-            // Link Indie (Solo luogo)
-            const indieUrl = https://indiecampers.it/noleggio-camper/${dove};
-            
-            // Link Roadsurfer (Fisso per sicurezza)
-            const roadUrl = https://roadsurfer.com/it-it/noleggio-camper/;
+            if(dataIn) { const [y,m,d] = dataIn.split('-'); startIT = ${d}/${m}/${y}; }
+            if(dataOut) { const [y,m,d] = dataOut.split('-'); endIT = ${d}/${m}/${y}; }
 
-            // 4. AGGIORNA I TASTI (HREF)
-            document.getElementById('btn-main').href = yescapaUrl;
-            document.getElementById('link-yescapa').href = yescapaUrl;
-            document.getElementById('link-indie').href = indieUrl;
-            document.getElementById('link-road').href = roadUrl;
+            // 3. COSTRUZIONE LINK YESCAPA (Metodo "cerca" infallibile)
+            // Esempio: https://www.yescapa.it/cerca/?where=Milano&arrival_date=10/08/2026...
+            let yescapaBase = "https://www.yescapa.it/cerca/?";
+            let params = [];
+            
+            if(dove) params.push(where=${encodeURIComponent(dove)});
+            if(startIT) params.push(arrival_date=${encodeURIComponent(startIT)});
+            if(endIT) params.push(departure_date=${encodeURIComponent(endIT)});
+            
+            const yescapaFinal = yescapaBase + params.join('&');
+
+            // 4. COSTRUZIONE LINK INDIE (Semplice)
+            // Se c'è un luogo usa quello, altrimenti home
+            const indieFinal = dove ? https://indiecampers.it/noleggio-camper/${dove} : "https://indiecampers.it/noleggio-camper";
+
+            // 5. APPLICAZIONE AI TASTI
+            document.getElementById('btn-main').href = yescapaFinal;
+            document.getElementById('link-yescapa').href = yescapaFinal;
+            
+            document.getElementById('link-indie').href = indieFinal;
+            
+            // Roadsurfer fisso (i loro link dinamici sono bloccati)
+            document.getElementById('link-road').href = "https://roadsurfer.com/it-it/noleggio-camper/";
         }
     </script>
 </body>
