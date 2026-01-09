@@ -3,157 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CamperFinder Pro | Comparatore Intelligente</title>
+    <title>CamperFinder | Comparatore Funzionante</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f1f5f9; }
-        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07); }
-        .partner-btn { transition: all 0.2s; }
-        .partner-btn:active { transform: scale(0.98); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f3f4f6; }
+        /* Forziamo i tasti ad essere cliccabili */
+        button { cursor: pointer !important; user-select: none; } 
+        .card-shadow { box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
 
-<nav class="bg-white border-b border-gray-200 py-4 px-6 md:px-12 flex justify-between items-center sticky top-0 z-50">
-    <div class="flex items-center gap-2">
-        <div class="bg-blue-600 p-2 rounded-xl text-white"><i data-lucide="map"></i></div>
-        <span class="font-extrabold text-xl tracking-tighter uppercase italic text-gray-900">CAMPER<span class="text-blue-600 font-black">FINDER</span></span>
-    </div>
-    <div class="hidden md:flex gap-6 text-xs font-black uppercase tracking-widest text-gray-400">
-        <a href="#" class="hover:text-blue-600">Home</a>
-        <a href="#partners" class="hover:text-blue-600">Partner</a>
-    </div>
+<nav class="bg-white py-4 px-6 border-b flex justify-between items-center sticky top-0 z-50">
+    <div class="font-black text-xl tracking-tighter italic">CAMPER<span class="text-blue-600">FINDER</span></div>
+    <div class="text-xs font-bold text-gray-400 uppercase">Beta Version 1.0</div>
 </nav>
 
-<header class="pt-20 pb-32 text-center px-4 bg-white">
-    <h1 class="text-4xl md:text-7xl font-black mb-6 tracking-tight text-gray-900">
-        Trova il Camper nel<br><span class="text-blue-600">tuo budget reale.</span>
-    </h1>
-    <p class="text-gray-500 font-medium text-lg max-w-2xl mx-auto">Il primo comparatore che calcola il prezzo giornaliero in automatico.</p>
+<header class="text-center py-16 px-4">
+    <h1 class="text-4xl md:text-6xl font-black text-gray-900 mb-4">Trova il tuo Van</h1>
+    <p class="text-gray-500">Confronta Yescapa, Goboony, Indie Campers e Roadsurfer.</p>
 </header>
 
-<div class="max-w-6xl mx-auto px-4 -mt-24 relative z-10">
-    <div class="glass-card p-8 md:p-10 rounded-[2.5rem]">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div class="space-y-2">
-                <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Dove</label>
-                <div class="relative">
-                    <i data-lucide="search" class="absolute left-4 top-4 w-5 h-5 text-gray-400"></i>
-                    <input type="text" id="loc" placeholder="Italia, Sardegna..." class="w-full pl-12 p-4 bg-gray-50 rounded-2xl font-bold text-gray-700 outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-            </div>
+<div class="max-w-5xl mx-auto px-4 -mt-8 relative z-10">
+    <div class="bg-white p-8 rounded-[2rem] card-shadow border border-gray-200">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             
-            <div class="space-y-2">
-                <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Quando</label>
-                <div class="flex gap-2">
-                    <input type="date" id="start" class="w-1/2 p-4 bg-gray-50 rounded-2xl font-bold text-gray-700 outline-none focus:ring-2 focus:ring-blue-500 text-xs">
-                    <input type="date" id="end" class="w-1/2 p-4 bg-gray-50 rounded-2xl font-bold text-gray-700 outline-none focus:ring-2 focus:ring-blue-500 text-xs">
+            <div class="bg-gray-50 p-4 rounded-xl">
+                <label class="block text-[10px] font-black uppercase text-gray-400 mb-1">Dove?</label>
+                <input type="text" id="luogo" placeholder="Es. Milano" class="bg-transparent w-full font-bold outline-none text-gray-800">
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-xl flex gap-2">
+                <div class="w-1/2">
+                    <label class="block text-[10px] font-black uppercase text-gray-400 mb-1">Ritiro</label>
+                    <input type="date" id="data_in" class="bg-transparent w-full font-bold outline-none text-xs">
+                </div>
+                <div class="w-1/2 border-l pl-2 border-gray-200">
+                    <label class="block text-[10px] font-black uppercase text-gray-400 mb-1">Rientro</label>
+                    <input type="date" id="data_out" class="bg-transparent w-full font-bold outline-none text-xs">
                 </div>
             </div>
 
-            <div class="space-y-2">
-                <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Budget Totale (€)</label>
-                <div class="relative">
-                    <i data-lucide="euro" class="absolute left-4 top-4 w-5 h-5 text-gray-400"></i>
-                    <input type="number" id="budget" placeholder="Es. 1000" class="w-full pl-12 p-4 bg-gray-50 rounded-2xl font-bold text-gray-700 outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
+            <div class="bg-gray-50 p-4 rounded-xl">
+                <label class="block text-[10px] font-black uppercase text-gray-400 mb-1">Budget Totale (€)</label>
+                <input type="number" id="soldi" placeholder="1000" class="bg-transparent w-full font-bold outline-none text-gray-800">
             </div>
 
-            <div class="flex items-end">
-                <button onclick="vai('goboony')" class="partner-btn w-full bg-blue-600 text-white p-4 rounded-2xl font-black uppercase text-xs tracking-[0.2em] shadow-xl shadow-blue-200 hover:bg-blue-700">
-                    Cerca Ora
-                </button>
-            </div>
+            <button onclick="cerca('goboony')" class="bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black uppercase text-sm tracking-widest shadow-lg shadow-blue-200 transition active:scale-95 py-4 md:py-0">
+                Cerca Ora
+            </button>
         </div>
-        <div class="text-center mt-4">
-            <p id="info-budget" class="text-xs text-gray-400 font-bold italic">Inserisci le date per calcolare il prezzo giornaliero corretto.</p>
-        </div>
+        <p class="text-center text-[10px] text-gray-400 mt-4 font-bold uppercase">Il tasto "Cerca Ora" apre Goboony (il più completo). Usa i tasti sotto per gli altri.</p>
     </div>
 </div>
 
-<main id="partners" class="max-w-6xl mx-auto py-24 px-6">
+<main class="max-w-6xl mx-auto py-20 px-6">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="bg-white p-8 rounded-[2rem] border border-gray-100 hover:border-blue-400 transition shadow-sm text-center group">
-            <h3 class="font-black text-2xl text-teal-600 mb-1">GOBOONY</h3>
-            <p class="text-xs text-gray-400 font-bold uppercase mb-6">Migliore per l'Italia</p>
-            <button onclick="vai('goboony')" class="partner-btn w-full py-4 rounded-xl bg-gray-50 text-gray-900 font-black text-xs uppercase group-hover:bg-teal-600 group-hover:text-white transition">Vedi Offerte</button>
-        </div>
         
-        <div class="bg-white p-8 rounded-[2rem] border border-gray-100 hover:border-orange-400 transition shadow-sm text-center group">
-            <h3 class="font-black text-2xl text-orange-500 mb-1">YESCAPA</h3>
-            <p class="text-xs text-gray-400 font-bold uppercase mb-6">Noleggio tra privati</p>
-            <button onclick="vai('yescapa')" class="partner-btn w-full py-4 rounded-xl bg-gray-50 text-gray-900 font-black text-xs uppercase group-hover:bg-orange-500 group-hover:text-white transition">Vedi Offerte</button>
+        <div class="bg-white p-6 rounded-3xl border border-gray-100 text-center hover:border-blue-400 transition cursor-pointer" onclick="cerca('goboony')">
+            <h3 class="font-black text-xl text-teal-600 mb-2">GOBOONY</h3>
+            <p class="text-xs text-gray-400 mb-4">Supporta: Luogo, Date, Prezzo</p>
+            <button class="bg-gray-100 text-gray-900 px-6 py-2 rounded-full text-xs font-bold uppercase">Apri Goboony</button>
         </div>
 
-        <div class="bg-white p-8 rounded-[2rem] border border-gray-100 hover:border-blue-800 transition shadow-sm text-center group">
-            <h3 class="font-black text-2xl text-blue-900 italic mb-1">INDIE</h3>
-            <p class="text-xs text-gray-400 font-bold uppercase mb-6">Flotta Professionale</p>
-            <button onclick="vai('indie')" class="partner-btn w-full py-4 rounded-xl bg-gray-50 text-gray-900 font-black text-xs uppercase group-hover:bg-blue-900 group-hover:text-white transition">Vedi Offerte</button>
+        <div class="bg-white p-6 rounded-3xl border border-gray-100 text-center hover:border-orange-400 transition cursor-pointer" onclick="cerca('yescapa')">
+            <h3 class="font-black text-xl text-orange-500 mb-2">YESCAPA</h3>
+            <p class="text-xs text-gray-400 mb-4">Supporta: Luogo, Date, Prezzo</p>
+            <button class="bg-gray-100 text-gray-900 px-6 py-2 rounded-full text-xs font-bold uppercase">Apri Yescapa</button>
         </div>
 
-        <div class="bg-white p-8 rounded-[2rem] border border-gray-100 hover:border-yellow-400 transition shadow-sm text-center group">
-            <h3 class="font-black text-2xl text-gray-800 italic mb-1">ROAD</h3>
-            <p class="text-xs text-gray-400 font-bold uppercase mb-6">Stile & Qualità</p>
-            <button onclick="vai('roadsurfer')" class="partner-btn w-full py-4 rounded-xl bg-gray-50 text-gray-900 font-black text-xs uppercase group-hover:bg-yellow-400 group-hover:text-black transition">Vedi Offerte</button>
+        <div class="bg-white p-6 rounded-3xl border border-gray-100 text-center hover:border-blue-800 transition cursor-pointer" onclick="cerca('indie')">
+            <h3 class="font-black text-xl text-blue-900 italic mb-2">INDIE</h3>
+            <p class="text-xs text-gray-400 mb-4">Supporta: Luogo (No Prezzo)</p>
+            <button class="bg-gray-100 text-gray-900 px-6 py-2 rounded-full text-xs font-bold uppercase">Apri Indie</button>
         </div>
+
+        <div class="bg-white p-6 rounded-3xl border border-gray-100 text-center hover:border-yellow-400 transition cursor-pointer" onclick="cerca('roadsurfer')">
+            <h3 class="font-black text-xl text-gray-800 italic mb-2">ROAD</h3>
+            <p class="text-xs text-gray-400 mb-4">Supporta: Solo Link Diretto</p>
+            <button class="bg-gray-100 text-gray-900 px-6 py-2 rounded-full text-xs font-bold uppercase">Apri Roadsurfer</button>
+        </div>
+
     </div>
 </main>
 
-<footer class="bg-gray-900 text-white py-12 text-center mt-12">
-    <p class="text-gray-500 text-xs font-bold uppercase tracking-widest">© 2026 CamperFinder Pro</p>
-</footer>
-
 <script>
+    // Carichiamo le icone subito
     lucide.createIcons();
 
-    function vai(partner) {
-        // 1. Prendi i valori grezzi
-        const loc = document.getElementById('loc').value.trim() || "italia";
-        const start = document.getElementById('start').value;
-        const end = document.getElementById('end').value;
-        const budgetTotale = parseFloat(document.getElementById('budget').value);
+    function cerca(sito) {
+        // 1. Diamo un feedback visivo immediato che qualcosa sta succedendo
+        // (Opzionale, puoi toglierlo se ti dà fastidio l'alert)
+        // alert("Ti sto portando su " + sito + "...");
 
-        // 2. Calcola il budget GIORNALIERO (i siti ragionano così)
-        let budgetGiornaliero = "";
+        // 2. Prendiamo i dati
+        var luogo = document.getElementById('luogo').value || "italia";
+        var dataIn = document.getElementById('data_in').value;
+        var dataOut = document.getElementById('data_out').value;
+        var budgetTotale = document.getElementById('soldi').value;
         
-        if (start && end && budgetTotale) {
-            const d1 = new Date(start);
-            const d2 = new Date(end);
-            const diffTime = Math.abs(d2 - d1);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-            
-            if (diffDays > 0) {
-                // Arrotonda per eccesso (es. 1000€ / 10gg = 100€/notte)
-                budgetGiornaliero = Math.floor(budgetTotale / diffDays);
+        // Pulizia del luogo (toglie spazi extra)
+        luogo = luogo.trim().toLowerCase();
+
+        // 3. Calcolo budget giornaliero (Se c'è)
+        var budgetGiornaliero = "";
+        if(budgetTotale && dataIn && dataOut) {
+            var d1 = new Date(dataIn);
+            var d2 = new Date(dataOut);
+            var giorni = (d2 - d1) / (1000 * 60 * 60 * 24);
+            if(giorni > 0) {
+                budgetGiornaliero = Math.floor(budgetTotale / giorni);
             }
-        } else if (budgetTotale) {
-            // Se non mette le date, usiamo il budget così com'è (meglio di niente)
-            budgetGiornaliero = budgetTotale;
         }
 
-        // 3. Costruisci i link "chirurgici"
-        let url = "";
+        // 4. Creazione Link (Logica blindata)
+        var url = "";
 
-        if (partner === 'goboony') {
-            // Goboony usa "max_price" ma intende prezzo per notte
-            url = https://www.goboony.it/noleggio-camper/${loc}?arrival=${start}&departure=${end};
-            if(budgetGiornaliero) url += &max_price=${budgetGiornaliero};
+        if(sito === 'goboony') {
+            url = "https://www.goboony.it/noleggio-camper/" + luogo + "?arrival=" + dataIn + "&departure=" + dataOut;
+            if(budgetGiornaliero) url += "&max_price=" + budgetGiornaliero;
         } 
-        else if (partner === 'yescapa') {
-            url = https://it.yescapa.com/s/${loc}/?arrival=${start}&departure=${end};
-            if(budgetGiornaliero) url += &price_max=${budgetGiornaliero};
+        else if(sito === 'yescapa') {
+            // Yescapa richiede un formato specifico
+            url = "https://it.yescapa.com/s/" + luogo + "/?arrival=" + dataIn + "&departure=" + dataOut;
+            if(budgetGiornaliero) url += "&price_max=" + budgetGiornaliero;
         }
-        else if (partner === 'indie') {
-            url = https://indiecampers.it/noleggio-camper/${loc};
+        else if(sito === 'indie') {
+            // Indie Campers accetta bene solo il luogo nell'URL
+            url = "https://indiecampers.it/noleggio-camper/" + luogo;
         }
-        else if (partner === 'roadsurfer') {
-            url = https://roadsurfer.com/it-it/noleggio-camper/;
+        else if(sito === 'roadsurfer') {
+            // Roadsurfer ha filtri complessi, meglio mandarli alla home prenotazioni
+            url = "https://roadsurfer.com/it-it/noleggio-camper/";
         }
 
-        // 4. Esegui il reindirizzamento forzato (impossibile da bloccare)
-        window.location.assign(url);
+        // 5. VAI!
+        window.location.href = url;
     }
 </script>
 
