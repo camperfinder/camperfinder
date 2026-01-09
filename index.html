@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CamperFinder Pro</title>
+    <title>CamperFinder | Search Engine</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -23,8 +23,8 @@
             <div class="bg-blue-600 p-2 rounded-lg"><i data-lucide="compass"></i></div>
             <span class="font-black text-xl tracking-tight uppercase">Camper<span class="text-blue-500">Finder</span></span>
         </div>
-        <div class="text-[10px] font-bold bg-white/10 px-3 py-1 rounded-full border border-white/20 uppercase tracking-widest animate-pulse">
-            System Ready
+        <div class="text-[10px] font-bold bg-green-500/20 px-3 py-1 rounded-full border border-green-500/40 uppercase tracking-widest animate-pulse">
+            System Online
         </div>
     </nav>
 
@@ -37,7 +37,7 @@
                 
                 <div class="bg-slate-50 p-3 rounded-xl border-2 border-transparent focus-within:border-blue-500 text-left">
                     <label class="block text-[10px] font-black uppercase text-slate-400 ml-1">Destinazione</label>
-                    <input type="text" id="luogo" placeholder="Es. Milano" class="bg-transparent w-full font-bold outline-none text-sm" oninput="aggiornaLink()">
+                    <input type="text" id="luogo" placeholder="Es. Sardegna" class="bg-transparent w-full font-bold outline-none text-sm" oninput="aggiornaLink()">
                 </div>
 
                 <div class="bg-slate-50 p-3 rounded-xl border-2 border-transparent focus-within:border-blue-500 text-left">
@@ -114,41 +114,39 @@
 
         function aggiornaLink() {
             // 1. INPUT Dati
-            let dove = document.getElementById('luogo').value.trim();
-            // Se vuoto, lasciamo vuoto o mettiamo Italia per Yescapa
-            
+            let inputLuogo = document.getElementById('luogo').value.trim();
             const dataIn = document.getElementById('data1').value;
             const dataOut = document.getElementById('data2').value;
 
-            // 2. FORMATTAZIONE DATA PER YESCAPA (Fondamentale: DD/MM/YYYY)
-            // Usiamo parametri query standard: arrival_date e departure_date
+            // 2. CREA LO "SLUG" (Sardegna -> sardegna, San Teodoro -> san-teodoro)
+            // Questo serve per Yescapa e Indie
+            let slug = inputLuogo.toLowerCase().replace(/ /g, '-').replace(/[^\w-]/g, '');
+            if(!slug) slug = ""; // Se vuoto resta vuoto
+
+            // 3. FORMATTAZIONE DATA (DD/MM/YYYY)
             let startIT = "", endIT = "";
-            
             if(dataIn) { const [y,m,d] = dataIn.split('-'); startIT = ${d}/${m}/${y}; }
             if(dataOut) { const [y,m,d] = dataOut.split('-'); endIT = ${d}/${m}/${y}; }
 
-            // 3. COSTRUZIONE LINK YESCAPA (Metodo "cerca" infallibile)
-            // Esempio: https://www.yescapa.it/cerca/?where=Milano&arrival_date=10/08/2026...
-            let yescapaBase = "https://www.yescapa.it/cerca/?";
-            let params = [];
-            
-            if(dove) params.push(where=${encodeURIComponent(dove)});
-            if(startIT) params.push(arrival_date=${encodeURIComponent(startIT)});
-            if(endIT) params.push(departure_date=${encodeURIComponent(endIT)});
-            
-            const yescapaFinal = yescapaBase + params.join('&');
+            // 4. COSTRUZIONE LINK YESCAPA (Logica /s/luogo/)
+            // Se c'è un luogo, usiamo /s/luogo/, altrimenti usiamo /cerca/ generico
+            let yescapaUrl = "";
+            if(slug) {
+                yescapaUrl = https://www.yescapa.it/s/${slug}/?;
+            } else {
+                yescapaUrl = https://www.yescapa.it/cerca/?;
+            }
+            // Aggiungiamo date se ci sono
+            if(startIT) yescapaUrl += arrival_date=${encodeURIComponent(startIT)}&;
+            if(endIT) yescapaUrl += departure_date=${encodeURIComponent(endIT)};
 
-            // 4. COSTRUZIONE LINK INDIE (Semplice)
-            // Se c'è un luogo usa quello, altrimenti home
-            const indieFinal = dove ? https://indiecampers.it/noleggio-camper/${dove} : "https://indiecampers.it/noleggio-camper";
+            // 5. COSTRUZIONE LINK INDIE
+            let indieUrl = slug ? https://indiecampers.it/noleggio-camper/${slug} : "https://indiecampers.it/noleggio-camper";
 
-            // 5. APPLICAZIONE AI TASTI
-            document.getElementById('btn-main').href = yescapaFinal;
-            document.getElementById('link-yescapa').href = yescapaFinal;
-            
-            document.getElementById('link-indie').href = indieFinal;
-            
-            // Roadsurfer fisso (i loro link dinamici sono bloccati)
+            // 6. APPLICAZIONE AI TASTI
+            document.getElementById('btn-main').href = yescapaUrl;
+            document.getElementById('link-yescapa').href = yescapaUrl;
+            document.getElementById('link-indie').href = indieUrl;
             document.getElementById('link-road').href = "https://roadsurfer.com/it-it/noleggio-camper/";
         }
     </script>
