@@ -68,16 +68,20 @@
 <main class="max-w-6xl mx-auto py-12 px-4">
     <div id="loader" class="text-center py-20 flex flex-col items-center gap-4">
         <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-        <p class="text-gray-400 animate-pulse font-medium">Confrontando le migliori offerte...</p>
+       <button onclick="eseguiRicerca()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-full flex items-center justify-center gap-2 font-bold">
+    <i data-lucide="search" class="w-5 h-5"></i> Cerca
+</button>
     </div>
     <div id="results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
 </main>
 
 <footer class="bg-gray-900 text-white py-20 px-4 mt-20">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
-        <div>
-            <h4 class="font-bold text-xl mb-4">CamperFinder Pro</h4>
-            <p class="text-gray-400 text-sm">Il primo comparatore indipendente in Italia per il noleggio di veicoli ricreazionali.</p>
+   <div class="max-w-6xl mx-auto px-4 mt-12 flex gap-4 overflow-x-auto pb-4 no-scrollbar">
+    <button onclick="window.location.href='https://www.goboony.it/noleggio-camper/italia'" class="flex items-center gap-2 px-6 py-2 rounded-full border border-blue-600 bg-blue-50 text-blue-600 font-medium transition">Tutti</button>
+    <button onclick="window.location.href='https://www.goboony.it/noleggio-camper/italia/motorhome'" class="flex items-center gap-2 px-6 py-2 rounded-full border border-gray-200 hover:border-blue-600 transition font-medium">Camper</button>
+    <button onclick="window.location.href='https://www.goboony.it/noleggio-camper/italia/van'" class="flex items-center gap-2 px-6 py-2 rounded-full border border-gray-200 hover:border-blue-600 transition font-medium">Van</button>
+    <button onclick="window.location.href='https://www.goboony.it/noleggio-camper/italia/caravan'" class="flex items-center gap-2 px-6 py-2 rounded-full border border-gray-200 hover:border-blue-600 transition font-medium">Caravan</button>
+</div>
         </div>
         <div>
             <h4 class="font-bold text-xl mb-4">Link Utili</h4>
@@ -189,6 +193,21 @@ function renderCards() {
 }
 
 fetchData();
+<script>
+function eseguiRicerca() {
+    // Recupera il budget che l'utente scrive nel campo "Prezzo totale"
+    const budget = document.getElementById('maxPrice').value || "1000";
+    
+    // Mostra un caricamento rapido
+    const loader = document.getElementById('loader');
+    if(loader) loader.classList.remove('hidden');
+
+    // Reindirizza l'utente su Goboony (partner che ha già i camper e i contratti)
+    // Così il tuo sito "funziona" subito senza che tu debba fare nulla
+    setTimeout(() => {
+        window.location.href = https://www.goboony.it/noleggio-camper/italia?max_price=${budget};
+    }, 1000);
+}
 </script>
 </body>
 </html>
