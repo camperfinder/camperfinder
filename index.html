@@ -1,69 +1,109 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>CamperFinder – Noleggio camper low cost</title>
-  <meta name="description" content="Trova il noleggio camper più economico. Confronta offerte reali e vai al sito ufficiale.">
+<meta charset="UTF-8">
+<title>CamperFinder – Confronta noleggio camper</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Confronta i noleggi camper più economici e vai al sito ufficiale.">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f7fa;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background: #1f3c88;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+header h1 {
+  margin: 0;
+}
+.container {
+  padding: 20px;
+  max-width: 900px;
+  margin: auto;
+}
+input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.card h3 {
+  margin: 0 0 5px 0;
+}
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1f3c88;
+}
+a.button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #1f3c88;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+footer {
+  text-align: center;
+  font-size: 14px;
+  padding: 20px;
+  color: #555;
+}
+</style>
 </head>
+
 <body>
 
-<h1>Noleggio camper: trova il prezzo più basso</h1>
-<p>Confrontiamo offerte pubbliche di noleggio camper e van. Prenoti sempre dal sito ufficiale.</p>
+<header>
+  <h1>CamperFinder</h1>
+  <p>Trova il noleggio camper più economico</p>
+</header>
 
-<input type="text" id="search" placeholder="Cerca città o compagnia">
+<div class="container">
+  <input type="text" id="search" placeholder="Cerca città o compagnia…">
+  <div id="results"></div>
+</div>
 
-<ul id="list"></ul>
-
-<script>
-const sheetURL = "<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <title>CamperFinder – Noleggio camper low cost</title>
-  <meta name="description" content="Trova il noleggio camper più economico. Confronta offerte reali e vai al sito ufficiale.">
-</head>
-<body>
-
-<h1>Noleggio camper: trova il prezzo più basso</h1>
-<p>Confrontiamo offerte pubbliche di noleggio camper e van. Prenoti sempre dal sito ufficiale.</p>
-
-<input type="text" id="search" placeholder="Cerca città o compagnia">
-
-<ul id="list"></ul>
+<footer>
+  Prezzi indicativi. Prenotazione sempre sul sito ufficiale.
+</footer>
 
 <script>
-const sheetURL = "<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <title>CamperFinder – Noleggio camper low cost</title>
-  <meta name="description" content="Trova il noleggio camper più economico. Confronta offerte reali e vai al sito ufficiale.">
-</head>
-<body>
+const sheetLink = "https://docs.google.com/spreadsheets/d/1b1eqBL0gaSd_mOgdndEDj9Hh3ckad7U78gXIEQ33Yvc/edit?usp=sharing";
+const sheetId = sheetLink.split("/")[5];
+const url = https://opensheet.elk.sh/${sheetId}/Foglio1;
 
-<h1>Noleggio camper: trova il prezzo più basso</h1>
-<p>Confrontiamo offerte pubbliche di noleggio camper e van. Prenoti sempre dal sito ufficiale.</p>
-
-<input type="text" id="search" placeholder="Cerca città o compagnia">
-
-<ul id="list"></ul>
-
-<script>
-const sheetURL = "https://docs.google.com/spreadsheets/d/1b1eqBL0gaSd_mOgdndEDj9Hh3ckad7U78gXIEQ33Yvc/edit?usp=sharing";
-
-fetch(https://opensheet.elk.sh/${sheetURL.split('/')[5]}/Foglio1)
+fetch(url)
   .then(res => res.json())
   .then(data => {
-    const list = document.getElementById("list");
+    const results = document.getElementById("results");
     const search = document.getElementById("search");
 
     function render(items) {
-      list.innerHTML = "";
+      results.innerHTML = "";
       items.forEach(i => {
-        list.innerHTML += `<li>
-          <strong>${i.Nome}</strong> – ${i.Città} – ${i.Tipo} – da ${i.Prezzo}€ 
-          <a href="${i.Link}" target="_blank">Vai al sito</a>
-        </li>`;
+        results.innerHTML += `
+          <div class="card">
+            <h3>${i.Nome}</h3>
+            <p>${i.Città} • ${i.Tipo}</p>
+            <p class="price">Da ${i.Prezzo} € / giorno</p>
+            <a class="button" href="${i.Link}" target="_blank">Vai all’offerta</a>
+          </div>
+        `;
       });
     }
 
@@ -78,80 +118,6 @@ fetch(https://opensheet.elk.sh/${sheetURL.split('/')[5]}/Foglio1)
     });
   });
 </script>
-
-<footer>
-<p>Prezzi indicativi. Il noleggio avviene sempre sui siti ufficiali.</p>
-</footer>
-
-</body>
-</html>";
-
-fetch(https://opensheet.elk.sh/${sheetURL.split('/')[5]}/Foglio1)
-  .then(res => res.json())
-  .then(data => {
-    const list = document.getElementById("list");
-    const search = document.getElementById("search");
-
-    function render(items) {
-      list.innerHTML = "";
-      items.forEach(i => {
-        list.innerHTML += `<li>
-          <strong>${i.Nome}</strong> – ${i.Città} – ${i.Tipo} – da ${i.Prezzo}€ 
-          <a href="${i.Link}" target="_blank">Vai al sito</a>
-        </li>`;
-      });
-    }
-
-    render(data);
-
-    search.addEventListener("input", e => {
-      const v = e.target.value.toLowerCase();
-      render(data.filter(i =>
-        i.Nome.toLowerCase().includes(v) ||
-        i.Città.toLowerCase().includes(v)
-      ));
-    });
-  });
-</script>
-
-<footer>
-<p>Prezzi indicativi. Il noleggio avviene sempre sui siti ufficiali.</p>
-</footer>
-
-</body>
-</html>";
-
-fetch(https://opensheet.elk.sh/${sheetURL.split('/')[5]}/Foglio1)
-  .then(res => res.json())
-  .then(data => {
-    const list = document.getElementById("list");
-    const search = document.getElementById("search");
-
-    function render(items) {
-      list.innerHTML = "";
-      items.forEach(i => {
-        list.innerHTML += `<li>
-          <strong>${i.Nome}</strong> – ${i.Città} – ${i.Tipo} – da ${i.Prezzo}€ 
-          <a href="${i.Link}" target="_blank">Vai al sito</a>
-        </li>`;
-      });
-    }
-
-    render(data);
-
-    search.addEventListener("input", e => {
-      const v = e.target.value.toLowerCase();
-      render(data.filter(i =>
-        i.Nome.toLowerCase().includes(v) ||
-        i.Città.toLowerCase().includes(v)
-      ));
-    });
-  });
-</script>
-
-<footer>
-<p>Prezzi indicativi. Il noleggio avviene sempre sui siti ufficiali.</p>
-</footer>
 
 </body>
 </html>
