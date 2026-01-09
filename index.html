@@ -13,19 +13,19 @@
         .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #f0f0f0; }
         .card-hover:hover { transform: translateY(-10px); border-color: #3b82f6; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         .gradient-text { background: linear-gradient(90deg, #2563eb, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
+        input[type="date"] { cursor: pointer; }
+        button { cursor: pointer !important; z-index: 10; position: relative; }
     </style>
 </head>
 <body>
 
 <nav class="border-b border-gray-100 py-4 px-8 flex justify-between items-center sticky top-0 bg-white/80 backdrop-blur-md z-50">
     <div class="flex items-center gap-2">
-        <div class="bg-blue-600 p-2 rounded-lg text-white shadow-lg shadow-blue-200"><i data-lucide="car"></i></div>
+        <div class="bg-blue-600 p-2 rounded-lg text-white"><i data-lucide="car"></i></div>
         <span class="font-bold text-xl tracking-tighter uppercase italic">CAMPER<span class="text-blue-600 font-black">FINDER</span></span>
     </div>
     <div class="flex gap-6 text-sm font-semibold text-gray-600">
         <a href="#esplora" class="hover:text-blue-600 transition">Esplora</a>
-        <a href="#contatti" class="hover:text-blue-600 transition">Assicurazione</a>
         <a href="#contatti" class="hover:text-blue-600 transition">Supporto</a>
     </div>
 </nav>
@@ -33,31 +33,31 @@
 <header class="pt-16 pb-32 bg-gray-50 px-4 text-center">
     <div class="max-w-4xl mx-auto">
         <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight tracking-tighter">Trova il camper per la tua <span class="gradient-text">prossima avventura</span>.</h1>
-        <p class="text-gray-500 text-lg">Confrontiamo Yescapa, Indie Campers, Goboony e Roadsurfer in tempo reale.</p>
+        <p class="text-gray-500 text-lg">Confrontiamo i migliori partner in tempo reale.</p>
     </div>
 </header>
 
 <div class="max-w-6xl mx-auto px-4 -mt-16">
     <div class="bg-white p-6 rounded-[2.5rem] search-shadow border border-gray-100 grid grid-cols-1 md:grid-cols-5 gap-3 items-center">
-        <div class="px-6 py-2 hover:bg-gray-50 rounded-2xl transition border border-transparent focus-within:border-blue-400">
+        <div class="px-6 py-2 bg-gray-50 md:bg-transparent rounded-2xl">
             <label class="block text-[10px] font-black uppercase text-gray-400">Destinazione</label>
-            <input type="text" id="main-loc" placeholder="Dove vuoi andare?" class="bg-transparent w-full text-sm font-bold outline-none border-none">
+            <input type="text" id="dest" placeholder="Dove?" class="bg-transparent w-full text-sm font-bold outline-none border-none">
         </div>
-        <div class="px-6 py-2 border-l border-gray-100 hover:bg-gray-50 rounded-2xl transition border border-transparent focus-within:border-blue-400">
+        <div class="px-6 py-2 border-l border-gray-100 bg-gray-50 md:bg-transparent rounded-2xl">
             <label class="block text-[10px] font-black uppercase text-gray-400">Ritiro</label>
-            <input type="date" id="main-start" class="bg-transparent w-full text-sm font-bold outline-none border-none">
+            <input type="date" id="start" class="bg-transparent w-full text-sm font-bold outline-none border-none">
         </div>
-        <div class="px-6 py-2 border-l border-gray-100 hover:bg-gray-50 rounded-2xl transition border border-transparent focus-within:border-blue-400">
+        <div class="px-6 py-2 border-l border-gray-100 bg-gray-50 md:bg-transparent rounded-2xl">
             <label class="block text-[10px] font-black uppercase text-gray-400">Rientro</label>
-            <input type="date" id="main-end" class="bg-transparent w-full text-sm font-bold outline-none border-none">
+            <input type="date" id="end" class="bg-transparent w-full text-sm font-bold outline-none border-none">
         </div>
-        <div class="px-6 py-2 border-l border-gray-100 hover:bg-gray-50 rounded-2xl transition border border-transparent focus-within:border-blue-400">
+        <div class="px-6 py-2 border-l border-gray-100 bg-gray-50 md:bg-transparent rounded-2xl">
             <label class="block text-[10px] font-black uppercase text-gray-400">Budget Max (€)</label>
-            <input type="number" id="main-budget" placeholder="Es. 1000" class="bg-transparent w-full text-sm font-bold outline-none border-none">
+            <input type="number" id="budget" placeholder="Totale" class="bg-transparent w-full text-sm font-bold outline-none border-none">
         </div>
         <div class="p-2">
-            <button onclick="router('all')" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl flex items-center justify-center gap-2 font-black uppercase text-xs tracking-widest transition shadow-lg shadow-blue-200">
-                <i data-lucide="search" class="w-4 h-4"></i> Compara Ora
+            <button id="btn-main" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl flex items-center justify-center gap-2 font-black uppercase text-xs tracking-widest transition shadow-lg shadow-blue-200 pointer-events-auto">
+                Compara Ora
             </button>
         </div>
     </div>
@@ -66,88 +66,83 @@
 <main id="esplora" class="max-w-6xl mx-auto py-24 px-4">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div class="card-hover p-8 rounded-[3rem] bg-white text-center flex flex-col items-center">
-            <div class="h-10 mb-6 flex items-center"><img src="https://it.yescapa.com/static/images/logo-yescapa.png" class="h-5"></div>
-            <p class="text-xs text-gray-400 mb-8 font-semibold">Noleggio tra privati in tutta Europa. Risparmio garantito.</p>
-            <button onclick="router('yescapa')" class="mt-auto w-full bg-gray-900 text-white py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-blue-600 transition">Vedi Offerte</button>
+            <div class="font-black text-orange-500 mb-6">YESCAPA</div>
+            <p class="text-xs text-gray-400 mb-8 font-semibold">Noleggio tra privati. Risparmio garantito.</p>
+            <button data-partner="yescapa" class="partner-btn mt-auto w-full bg-gray-900 text-white py-3 rounded-xl font-bold text-xs uppercase hover:bg-blue-600 transition">Vedi Offerte</button>
         </div>
         <div class="card-hover p-8 rounded-[3rem] bg-white text-center flex flex-col items-center">
-            <div class="h-10 mb-6 flex items-center"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Logo_Indie_Campers.png/320px-Logo_Indie_Campers.png" class="h-4"></div>
-            <p class="text-xs text-gray-400 mb-8 font-semibold">Van moderni e flotta professionale con assistenza 24/7.</p>
-            <button onclick="router('indie')" class="mt-auto w-full bg-gray-900 text-white py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-blue-600 transition">Vedi Offerte</button>
+            <div class="font-black text-blue-800 mb-6 italic uppercase">Indie Campers</div>
+            <p class="text-xs text-gray-400 mb-8 font-semibold">Van moderni e flotta professionale.</p>
+            <button data-partner="indie" class="partner-btn mt-auto w-full bg-gray-900 text-white py-3 rounded-xl font-bold text-xs uppercase hover:bg-blue-600 transition">Vedi Offerte</button>
         </div>
         <div class="card-hover p-8 rounded-[3rem] bg-white text-center flex flex-col items-center">
-            <div class="h-10 mb-6 flex items-center font-black text-2xl text-teal-500 tracking-tighter uppercase italic">Goboony</div>
-            <p class="text-xs text-gray-400 mb-8 font-semibold">La più grande community di camperisti in Italia.</p>
-            <button onclick="router('goboony')" class="mt-auto w-full bg-gray-900 text-white py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-blue-600 transition">Vedi Offerte</button>
+            <div class="h-10 mb-6 font-black text-2xl text-teal-500 tracking-tighter uppercase italic">Goboony</div>
+            <p class="text-xs text-gray-400 mb-8 font-semibold">La community n.1 in Italia.</p>
+            <button data-partner="goboony" class="partner-btn mt-auto w-full bg-gray-900 text-white py-3 rounded-xl font-bold text-xs uppercase hover:bg-blue-600 transition">Vedi Offerte</button>
         </div>
         <div class="card-hover p-8 rounded-[3rem] bg-white text-center flex flex-col items-center">
-            <div class="h-10 mb-6 flex items-center font-black text-2xl text-orange-500 tracking-tighter uppercase italic">Roadsurfer</div>
-            <p class="text-xs text-gray-400 mb-8 font-semibold">I van colorati più famosi d'Europa. Stile unico.</p>
-            <button onclick="router('roadsurfer')" class="mt-auto w-full bg-gray-900 text-white py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-blue-600 transition">Vedi Offerte</button>
+            <div class="h-10 mb-6 font-black text-2xl text-orange-600 tracking-tighter uppercase italic">Roadsurfer</div>
+            <p class="text-xs text-gray-400 mb-8 font-semibold">I van colorati più famosi d'Europa.</p>
+            <button data-partner="roadsurfer" class="partner-btn mt-auto w-full bg-gray-900 text-white py-3 rounded-xl font-bold text-xs uppercase hover:bg-blue-600 transition">Vedi Offerte</button>
         </div>
     </div>
 </main>
 
 <footer id="contatti" class="bg-gray-900 text-white py-20 px-10 mt-20">
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16">
-        <div>
-            <div class="flex items-center gap-2 mb-6">
-                <div class="bg-blue-600 p-2 rounded-lg text-white"><i data-lucide="car"></i></div>
-                <span class="font-bold text-xl uppercase italic">CAMPERFINDER</span>
-            </div>
-            <p class="text-gray-400 text-sm">Il comparatore indipendente per i tuoi viaggi in libertà. Cerchiamo per te i prezzi migliori.</p>
-        </div>
-        <div>
-            <h4 class="font-bold text-lg mb-6">Link Utili</h4>
-            <ul class="text-gray-400 space-y-3 text-sm">
-                <li><a href="#" class="hover:text-blue-400 transition">Privacy Policy</a></li>
-                <li><a href="#" class="hover:text-blue-400 transition">Termini di Servizio</a></li>
-                <li><a href="#" class="hover:text-blue-400 transition">Contatti</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4 class="font-bold text-lg mb-6">Ricevi Offerte</h4>
-            <div class="flex gap-2">
-                <input type="email" placeholder="Email" class="bg-gray-800 border-none p-4 rounded-xl w-full text-sm outline-none">
-                <button class="bg-blue-600 p-4 rounded-xl hover:bg-blue-700 transition"><i data-lucide="send" class="w-4 h-4"></i></button>
-            </div>
-        </div>
+        <div><h4 class="font-bold text-xl mb-4 italic uppercase">CamperFinder</h4><p class="text-gray-400 text-sm">Comparatore indipendente per i tuoi viaggi.</p></div>
+        <div><h4 class="font-bold text-lg mb-6">Supporto</h4><ul class="text-gray-400 space-y-3 text-sm"><li>Privacy Policy</li><li>Contatti</li></ul></div>
+        <div><h4 class="font-bold text-lg mb-6">Newsletter</h4><input type="email" placeholder="Email" class="bg-gray-800 p-4 rounded-xl w-full text-sm outline-none border-none"></div>
     </div>
 </footer>
 
 <script>
-    // Inizializzazione icone
+    // 1. Carica icone
     lucide.createIcons();
 
-    // Funzione Router: è il cuore del sito. Gestisce tutti i click.
-    function router(target) {
-        const loc = document.getElementById('main-loc').value.trim() || "italia";
-        const s = document.getElementById('main-start').value;
-        const e = document.getElementById('main-end').value;
-        const b = document.getElementById('main-budget').value;
+    // 2. Funzione universale di navigazione
+    function openLink(target) {
+        const d = document.getElementById('dest').value.trim() || "italia";
+        const s = document.getElementById('start').value;
+        const e = document.getElementById('end').value;
+        const b = document.getElementById('budget').value;
 
         let url = "";
 
-        if (target === 'yescapa') {
-            url = https://it.yescapa.com/s/${loc.toLowerCase()}/?arrival=${s}&departure=${e};
-        } else if (target === 'indie') {
-            url = https://indiecampers.it/noleggio-camper/${loc.toLowerCase()};
-        } else if (target === 'roadsurfer') {
-            url = https://roadsurfer.com/it-it/prenotazione-noleggio-camper/;
-        } else {
-            // Caso 'all' o 'goboony'
-            let base = https://www.goboony.it/noleggio-camper/${loc.toLowerCase()};
-            let p = [];
-            if(s) p.push(arrival=${s});
-            if(e) p.push(departure=${e});
-            if(b) p.push(max_price=${b});
-            url = p.length > 0 ? ${base}?${p.join('&')} : base;
+        switch(target) {
+            case 'yescapa':
+                url = https://it.yescapa.com/s/${d}/?arrival=${s}&departure=${e};
+                break;
+            case 'indie':
+                url = https://indiecampers.it/noleggio-camper/${d};
+                break;
+            case 'roadsurfer':
+                url = https://roadsurfer.com/it-it/noleggio-camper/;
+                break;
+            default: // Goboony o Principale
+                let base = https://www.goboony.it/noleggio-camper/${d};
+                let params = [];
+                if(s) params.push(arrival=${s});
+                if(e) params.push(departure=${e});
+                if(b) params.push(max_price=${b});
+                url = params.length > 0 ? ${base}?${params.join('&')} : base;
+                break;
         }
-
-        if(url) {
-            window.open(url, '_blank');
-        }
+        
+        if(url) window.open(url, '_blank');
     }
+
+    // 3. ASSEGNAZIONE EVENTI (Questo risolve il problema dei tasti che non funzionano)
+    document.getElementById('btn-main').addEventListener('click', function() {
+        openLink('all');
+    });
+
+    document.querySelectorAll('.partner-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const partner = this.getAttribute('data-partner');
+            openLink(partner);
+        });
+    });
 </script>
 </body>
 </html>
