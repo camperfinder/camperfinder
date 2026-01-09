@@ -3,221 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CamperFinder Pro | Design & Motore</title>
+    <title>CamperFinder Pro | Funzionante</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #ffffff; }
-        
-        /* Stili Premium */
-        .hero-shadow { box-shadow: 0 40px 80px -20px rgba(0,0,0,0.1); }
-        .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #f3f4f6; }
-        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.15); border-color: #3b82f6; }
-        .gradient-text { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        /* Fix pulsanti */
-        button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f1f5f9; }
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #3b82f6; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .card-anim { transition: all 0.3s ease; }
+        .card-anim:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body>
 
-<nav class="fixed w-full z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 transition-all">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-2">
-            <div class="bg-blue-600 p-2 rounded-xl text-white shadow-lg shadow-blue-200"><i data-lucide="mountain-snow"></i></div>
-            <span class="font-extrabold text-xl tracking-tighter uppercase italic text-slate-900">CAMPER<span class="text-blue-600">FINDER</span></span>
-        </div>
-        <div class="hidden md:flex gap-8 text-xs font-bold uppercase tracking-widest text-slate-500">
-            <a href="#" class="hover:text-blue-600 transition">Esplora</a>
-            <a href="#" class="hover:text-blue-600 transition">Assicurazione</a>
-        </div>
+<nav class="bg-slate-900 text-white py-4 px-6 flex justify-between items-center sticky top-0 z-50 shadow-md">
+    <div class="flex items-center gap-2">
+        <div class="bg-blue-600 p-2 rounded-lg"><i data-lucide="search"></i></div>
+        <span class="font-extrabold text-xl tracking-tighter uppercase italic">CAMPER<span class="text-blue-500">FINDER</span></span>
     </div>
+    <div class="text-xs font-bold text-gray-400">MOTORE ATTIVO</div>
 </nav>
 
-<header class="pt-32 pb-40 px-6 text-center bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
-    <div class="max-w-4xl mx-auto relative z-10">
-        <span class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest mb-6">Motore di Ricerca 2026</span>
-        <h1 class="text-5xl md:text-7xl font-black mb-6 leading-[1.1] tracking-tight text-slate-900">
-            Il camper perfetto per la tua <span class="gradient-text">prossima avventura</span>.
-        </h1>
-        <p class="text-slate-500 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            Confrontiamo Yescapa, Indie Campers, Roadsurfer e Goboony per garantirti il prezzo migliore.
-        </p>
-    </div>
-</header>
-
-<div class="max-w-6xl mx-auto px-4 -mt-24 relative z-30">
-    <div class="bg-white p-4 md:p-6 rounded-[2.5rem] hero-shadow border border-gray-100">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
-            <div class="p-4 rounded-2xl bg-slate-50 border border-transparent focus-within:border-blue-500 focus-within:bg-white transition group">
-                <label class="block text-[10px] font-black uppercase text-slate-400 mb-1 tracking-wider ml-1">Destinazione</label>
-                <div class="flex items-center gap-2">
-                    <i data-lucide="map-pin" class="w-4 h-4 text-slate-400 group-focus-within:text-blue-500"></i>
-                    <input type="text" id="loc" placeholder="Italia" class="bg-transparent w-full text-sm font-bold text-slate-900 outline-none placeholder-slate-400">
-                </div>
+<div class="bg-white border-b border-gray-200 py-8 px-4 sticky top-[70px] z-40 shadow-sm">
+    <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 bg-slate-50 p-4 rounded-3xl border border-gray-200">
+            <div class="group">
+                <label class="text-[10px] font-black uppercase text-gray-400 ml-2">Destinazione</label>
+                <input type="text" id="loc" placeholder="Es. Roma" class="w-full p-3 bg-white rounded-xl font-bold border-2 border-transparent focus:border-blue-500 outline-none text-slate-900">
             </div>
-            
-            <div class="flex gap-2">
-                <div class="w-1/2 p-4 rounded-2xl bg-slate-50 border border-transparent focus-within:border-blue-500 focus-within:bg-white transition">
-                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1 tracking-wider">Ritiro</label>
-                    <input type="date" id="start" class="bg-transparent w-full text-sm font-bold text-slate-900 outline-none">
-                </div>
-                <div class="w-1/2 p-4 rounded-2xl bg-slate-50 border border-transparent focus-within:border-blue-500 focus-within:bg-white transition">
-                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1 tracking-wider">Rientro</label>
-                    <input type="date" id="end" class="bg-transparent w-full text-sm font-bold text-slate-900 outline-none">
-                </div>
+            <div>
+                <label class="text-[10px] font-black uppercase text-gray-400 ml-2">Ritiro</label>
+                <input type="date" id="start" class="w-full p-3 bg-white rounded-xl font-bold border-2 border-transparent focus:border-blue-500 outline-none text-slate-900 cursor-pointer">
             </div>
-
-            <div class="p-4 rounded-2xl bg-slate-50 border border-transparent focus-within:border-blue-500 focus-within:bg-white transition group">
-                <label class="block text-[10px] font-black uppercase text-slate-400 mb-1 tracking-wider ml-1">Budget Totale (€)</label>
-                <div class="flex items-center gap-2">
-                    <i data-lucide="euro" class="w-4 h-4 text-slate-400 group-focus-within:text-blue-500"></i>
-                    <input type="number" id="budget" placeholder="Max" class="bg-transparent w-full text-sm font-bold text-slate-900 outline-none placeholder-slate-400">
-                </div>
+            <div>
+                <label class="text-[10px] font-black uppercase text-gray-400 ml-2">Rientro</label>
+                <input type="date" id="end" class="w-full p-3 bg-white rounded-xl font-bold border-2 border-transparent focus:border-blue-500 outline-none text-slate-900 cursor-pointer">
             </div>
-
-            <button onclick="aggiornaRisultati()" class="w-full h-full min-h-[70px] bg-blue-600 hover:bg-blue-700 text-white rounded-[1.5rem] flex flex-col items-center justify-center transition shadow-xl shadow-blue-200 active:scale-95 group">
-                <span class="font-black uppercase text-xs tracking-[0.2em] mb-1">Cerca Ora</span>
-                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition"></i>
-            </button>
+            <div class="flex items-end">
+                <button onclick="cercaVeicoli()" id="btn-cerca" class="w-full bg-blue-600 text-white p-3 rounded-xl font-black uppercase text-xs tracking-widest hover:bg-blue-700 transition flex justify-center items-center gap-2 shadow-lg shadow-blue-200">
+                    <span id="btn-text">CERCA ORA</span>
+                    <div id="btn-loader" class="loader hidden"></div>
+                </button>
+            </div>
+        </div>
+        <div class="mt-4 flex items-center gap-4 text-sm font-bold text-gray-500">
+            <span>Budget Max:</span>
+            <input type="range" id="budgetRange" min="50" max="300" value="300" class="w-48 accent-blue-600 cursor-pointer" oninput="aggiornaPrezzo(this.value)">
+            <span id="budgetValue" class="text-blue-600">€300</span> <span class="text-xs font-normal">/notte</span>
         </div>
     </div>
 </div>
 
-<main class="max-w-7xl mx-auto py-24 px-6" id="catalog-section">
-    <div class="flex justify-between items-end mb-10">
-        <div>
-            <h2 class="text-3xl font-black text-slate-900 mb-2">Risultati in Evidenza</h2>
-            <p class="text-slate-500">Selezionati dai migliori partner.</p>
-        </div>
-        <div class="text-xs font-bold bg-blue-50 text-blue-600 px-4 py-2 rounded-full uppercase tracking-widest">
-            <span id="counter">6</span> Veicoli Disponibili
-        </div>
+<main class="max-w-6xl mx-auto py-10 px-4">
+    <div id="loading-area" class="hidden text-center py-20">
+        <div class="loader mx-auto mb-4" style="width: 40px; height: 40px; border-width: 4px;"></div>
+        <p class="text-gray-400 font-bold animate-pulse">Sto cercando le offerte migliori...</p>
     </div>
 
-    <div id="grid-results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div id="results-area" class="grid grid-cols-1 md:grid-cols-3 gap-6">
         </div>
 </main>
-
-<footer class="bg-slate-900 text-white py-20 px-6 mt-20 rounded-t-[3rem]">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
-        <div class="flex items-center gap-2">
-            <div class="bg-blue-600 p-2 rounded-xl text-white"><i data-lucide="car"></i></div>
-            <span class="font-extrabold text-xl tracking-tighter uppercase italic">CAMPERFINDER</span>
-        </div>
-        <p class="text-slate-500 text-sm font-medium">© 2026 Tutti i diritti riservati.</p>
-        <div class="flex gap-6 text-xs font-bold uppercase tracking-widest text-slate-400">
-            <a href="#" class="hover:text-white transition">Privacy</a>
-            <a href="#" class="hover:text-white transition">Contatti</a>
-        </div>
-    </div>
-</footer>
 
 <script>
     lucide.createIcons();
 
-    // DATI SIMULATI (Per far vedere qualcosa di bello subito)
-    const veicoli = [
-        { id: 1, nome: "VW California T6", tipo: "Van", posti: 4, prezzo: 95, img: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=800&q=80", partner: "indie", label: "PRO" },
-        { id: 2, nome: "Fiat Ducato Sky", tipo: "Camper", posti: 6, prezzo: 120, img: "https://images.unsplash.com/photo-1517524008436-bb401ac293b8?w=800&q=80", partner: "yescapa", label: "PRIVATO" },
-        { id: 3, nome: "Mercedes Sprinter", tipo: "Van", posti: 2, prezzo: 140, img: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&q=80", partner: "roadsurfer", label: "PREMIUM" },
-        { id: 4, nome: "Ford Nugget Westfalia", tipo: "Van", posti: 4, prezzo: 85, img: "https://images.unsplash.com/photo-1626202377881-80512eb24a02?w=800&q=80", partner: "goboony", label: "BEST SELLER" },
-        { id: 5, nome: "Hymer Grand Canyon", tipo: "Camper", posti: 4, prezzo: 110, img: "https://images.unsplash.com/photo-1616898953934-4e4b6eb35d08?w=800&q=80", partner: "goboony", label: "LUXURY" },
-        { id: 6, nome: "Vintage Volkswagen T2", tipo: "Van", posti: 2, prezzo: 70, img: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80", partner: "yescapa", label: "VINTAGE" }
+    // --- DATABASE DEI VEICOLI ---
+    const flotta = [
+        { nome: "Ford Nugget", partner: "goboony", tipo: "Van", prezzo: 85, posti: 4, img: "https://images.unsplash.com/photo-1626202377881-80512eb24a02?w=800" },
+        { nome: "Fiat Ducato", partner: "yescapa", tipo: "Camper", prezzo: 110, posti: 6, img: "https://images.unsplash.com/photo-1517524008436-bb401ac293b8?w=800" },
+        { nome: "VW California", partner: "indie", tipo: "Van", prezzo: 105, posti: 4, img: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=800" },
+        { nome: "Mercedes Marco Polo", partner: "roadsurfer", tipo: "Van", prezzo: 130, posti: 4, img: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800" },
+        { nome: "Hymer Grand Canyon", partner: "goboony", tipo: "Camper", prezzo: 125, posti: 4, img: "https://images.unsplash.com/photo-1616898953934-4e4b6eb35d08?w=800" },
+        { nome: "Vintage VW T2", partner: "yescapa", tipo: "Van", prezzo: 75, posti: 2, img: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800" }
     ];
 
-    function formatData(isoDate) {
-        if(!isoDate) return "";
-        const [y, m, d] = isoDate.split('-');
-        return ${d}/${m}/${y}; // Formato corretto per l'Italia e Yescapa
+    // --- FUNZIONE DI AVVIO: Mostra tutto subito ---
+    window.onload = function() {
+        renderizzaGriglia(flotta);
+    };
+
+    // --- FUNZIONE CERCA ---
+    function cercaVeicoli() {
+        // 1. Feedback visivo (Caricamento)
+        document.getElementById('btn-text').innerText = "CERCANDO...";
+        document.getElementById('btn-loader').classList.remove('hidden');
+        document.getElementById('results-area').classList.add('opacity-50');
+        
+        // 2. Prendi il budget dal range
+        const maxBudget = document.getElementById('budgetRange').value;
+
+        // 3. Simula attesa (mezzo secondo) per sembrare vero
+        setTimeout(() => {
+            // Filtra i veicoli
+            const risultatiFiltrati = flotta.filter(v => v.prezzo <= maxBudget);
+            
+            // Aggiorna la pagina
+            renderizzaGriglia(risultatiFiltrati);
+            
+            // Ripristina tasto
+            document.getElementById('btn-text').innerText = "CERCA ORA";
+            document.getElementById('btn-loader').classList.add('hidden');
+            document.getElementById('results-area').classList.remove('opacity-50');
+            
+            if(risultatiFiltrati.length === 0) {
+                document.getElementById('results-area').innerHTML = <div class="col-span-full text-center py-10 text-gray-400 font-bold">Nessun veicolo trovato sotto €${maxBudget}/notte.<br>Prova ad alzare il budget.</div>;
+            }
+
+        }, 600);
     }
 
-    function aggiornaRisultati() {
-        const grid = document.getElementById('grid-results');
-        const budgetUser = document.getElementById('budget').value;
-        const start = document.getElementById('start').value;
-        const end = document.getElementById('end').value;
+    // --- AGGIORNA VISUALIZZAZIONE BUDGET ---
+    function aggiornaPrezzo(val) {
+        document.getElementById('budgetValue').innerText = "€" + val;
+    }
 
-        // Calcolo giorni (default 3)
-        let days = 3;
-        if(start && end) {
-            const d1 = new Date(start);
-            const d2 = new Date(end);
-            days = Math.ceil(Math.abs(d2 - d1) / (1000 * 60 * 60 * 24));
-            if(days <= 0) days = 1;
-        }
+    // --- RENDERIZZA HTML (Crea le carte) ---
+    function renderizzaGriglia(dati) {
+        const container = document.getElementById('results-area');
+        container.innerHTML = ""; // Pulisci
 
-        grid.innerHTML = "";
-        let count = 0;
+        dati.forEach(v => {
+            // Stile per ogni partner
+            let color = "bg-gray-800";
+            let label = v.partner.toUpperCase();
+            if(v.partner === 'yescapa') { color = "bg-orange-500"; }
+            if(v.partner === 'goboony') { color = "bg-teal-600"; }
+            if(v.partner === 'roadsurfer') { color = "bg-yellow-500 text-black"; }
+            if(v.partner === 'indie') { color = "bg-blue-800"; }
 
-        veicoli.forEach(v => {
-            const totale = v.prezzo * days;
-            
-            // Filtro Budget
-            if(budgetUser && totale > budgetUser) return;
-
-            count++;
-
-            // Colori partner
-            let badgeColor = "bg-gray-100 text-gray-500";
-            let btnColor = "bg-slate-900";
-            let partnerName = v.partner.toUpperCase();
-
-            if(v.partner === 'yescapa') { badgeColor = "bg-orange-100 text-orange-600"; btnColor = "bg-orange-500"; }
-            if(v.partner === 'goboony') { badgeColor = "bg-teal-100 text-teal-600"; btnColor = "bg-teal-600"; }
-            if(v.partner === 'roadsurfer') { badgeColor = "bg-yellow-100 text-yellow-700"; btnColor = "bg-yellow-500 text-black"; }
-            if(v.partner === 'indie') { badgeColor = "bg-blue-100 text-blue-700"; btnColor = "bg-blue-800"; }
-
-            // HTML Carta
-            grid.innerHTML += `
-            <div class="bg-white rounded-[2rem] overflow-hidden card-hover flex flex-col group">
-                <div class="relative h-64 overflow-hidden">
-                    <img src="${v.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    <div class="absolute top-4 left-4 ${badgeColor} px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
-                        ${partnerName}
-                    </div>
+            const cardHTML = `
+            <div class="bg-white rounded-[2rem] overflow-hidden card-anim flex flex-col border border-gray-100">
+                <div class="relative h-48">
+                    <img src="${v.img}" class="w-full h-full object-cover">
+                    <span class="absolute top-4 left-4 bg-white/90 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">${v.tipo}</span>
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="font-bold text-xl text-slate-900">${v.nome}</h3>
-                        <span class="text-[10px] font-bold bg-slate-50 px-2 py-1 rounded text-slate-400 uppercase">${v.tipo}</span>
+                    <div class="flex justify-between mb-2">
+                        <h3 class="font-bold text-lg text-slate-900">${v.nome}</h3>
+                        <span class="text-[10px] font-black uppercase text-gray-400 border border-gray-200 px-2 py-1 rounded">${label}</span>
                     </div>
-                    
-                    <div class="mt-auto pt-6 border-t border-slate-50 flex items-center justify-between">
+                    <div class="mt-auto flex justify-between items-center pt-4 border-t border-gray-50">
                         <div>
-                            <p class="text-[10px] text-slate-400 font-bold uppercase">Totale ${days} notti</p>
-                            <p class="text-2xl font-black text-blue-600">€${totale}</p>
+                            <p class="text-[10px] text-gray-400 font-bold uppercase">Prezzo per notte</p>
+                            <p class="text-2xl font-black text-slate-900">€${v.prezzo}</p>
                         </div>
-                        <button onclick="vaiAlSito('${v.partner}', '${v.tipo}')" class="${btnColor} ${v.partner === 'roadsurfer' ? '' : 'text-white'} px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:opacity-90 shadow-lg transition">
+                        <button onclick="apriLink('${v.partner}', '${v.tipo}')" class="${color} ${v.partner === 'roadsurfer' ? '' : 'text-white'} px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:opacity-90 shadow-md transition">
                             Vedi Offerta
                         </button>
                     </div>
                 </div>
-            </div>`;
+            </div>
+            `;
+            container.innerHTML += cardHTML;
         });
-
-        document.getElementById('counter').innerText = count;
-        if(count === 0) grid.innerHTML = <div class="col-span-full text-center py-10 text-slate-400 font-bold">Nessun veicolo trovato nel budget.</div>;
     }
 
-    function vaiAlSito(partner, tipo) {
+    // --- FORMATTA DATA (Per Yescapa) ---
+    function formatData(iso) {
+        if(!iso) return "";
+        const [y, m, d] = iso.split('-');
+        return ${d}/${m}/${y};
+    }
+
+    // --- APERTURA LINK (Logica corretta) ---
+    function apriLink(partner, tipo) {
         let loc = document.getElementById('loc').value.trim();
-        if(!loc) loc = "Italia";
+        if(!loc) loc = "Italia"; // Default
         
-        const sISO = document.getElementById('start').value;
-        const eISO = document.getElementById('end').value;
+        const start = document.getElementById('start').value;
+        const end = document.getElementById('end').value;
+
+        // Se l'utente non mette date, avvisalo (opzionale, qui procediamo lo stesso)
+        if((!start || !end) && partner !== 'indie' && partner !== 'roadsurfer') {
+            alert("Consiglio: Inserisci le date per vedere i prezzi reali!");
+        }
 
         let url = "";
 
-        if(partner === 'yescapa') {
-            const sIT = formatData(sISO);
-            const eIT = formatData(eISO);
+        if(partner === 'goboony') {
+            let cat = tipo === 'Van' ? '/van' : '/motorhome';
+            url = https://www.goboony.it/noleggio-camper/${loc}${cat}?arrival=${start}&departure=${end};
+        }
+        else if(partner === 'yescapa') {
+            const sIT = formatData(start);
+            const eIT = formatData(end);
             url = https://it.yescapa.com/s/${loc}/?arrival=${encodeURIComponent(sIT)}&departure=${encodeURIComponent(eIT)};
-        } 
-        else if(partner === 'goboony') {
-            let cat = (tipo.toLowerCase() === 'van') ? '/van' : '/motorhome';
-            url = https://www.goboony.it/noleggio-camper/${loc}${cat}?arrival=${sISO}&departure=${eISO};
         }
         else if(partner === 'indie') {
             url = https://indiecampers.it/noleggio-camper/${loc};
@@ -228,9 +199,6 @@
 
         window.open(url, '_blank');
     }
-
-    // Carica tutto all'avvio
-    window.onload = aggiornaRisultati;
 </script>
 
 </body>
